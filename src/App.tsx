@@ -661,10 +661,10 @@ const TextReveal = ({ text, className, delay = 0, style }: { text: string, class
       style={style}
     >
       {words.map((word, i) => (
-        <div key={i} className="overflow-hidden pb-[0.1em] -mb-[0.1em] mr-[0.25em]">
+        <div key={i} className="overflow-hidden pb-[0.5em] -mb-[0.5em] pt-[0.2em] -mt-[0.2em] px-[0.1em] -mx-[0.1em] mr-[0.25em]">
           <motion.span 
             variants={{
-              hidden: { y: "120%", opacity: 0, rotateZ: 5 },
+              hidden: { y: "110%", opacity: 0, rotateZ: 5 },
               visible: { y: "0%", opacity: 1, rotateZ: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } }
             }}
             className="inline-block origin-bottom-left"
@@ -737,7 +737,7 @@ const About = () => (
 
         {/* Dynamic Title Slide Up */}
         <div className="flex flex-col gap-2 mb-16 overflow-visible">
-           <div className="overflow-hidden mb-2">
+           <div className="overflow-hidden mb-2 pb-[0.2em] -mb-[0.2em]">
              <motion.h1 
                initial={{ y: "100%" }}
                whileInView={{ y: "0%" }}
