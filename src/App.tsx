@@ -458,7 +458,7 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
             initial={{ opacity: 0, x: -50, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            onClick={() => setIsPlaying(!isPlaying)}
+            onClick={handleToggle}
             className="group relative aspect-video w-[450px] overflow-hidden rounded-xl border border-white/20 bg-black shadow-2xl p-1 cursor-pointer"
           >
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
@@ -506,6 +506,8 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
               onClick={() => {
                 setTrackIndex(i);
                 setIsPlaying(true);
+                broadcastCommand('playVideo');
+                broadcastCommand('unMute');
               }}
               className={`cursor-pointer group transition-all duration-700 px-8 py-5 rounded-2xl backdrop-blur-md border border-white/5 ${trackIndex === i ? 'bg-black/60 scale-105 border-primary/30 shadow-[0_0_30px_rgba(157,0,255,0.1)]' : 'bg-black/20 opacity-40 scale-100'}`}
             >
