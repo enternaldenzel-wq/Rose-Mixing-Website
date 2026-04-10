@@ -1,0 +1,1380 @@
+{
+  "layout": "DefaultLayout",
+  "data": [
+    {}
+  ],
+  "fetch": {
+    "ProfilePage:0": {
+      "description": "View credits to Roman (Rosé) Hansen on Muso.AI",
+      "loading": {
+        "profile": false,
+        "credits": false,
+        "affiliations": false,
+        "labelPublisherAffiliations": false,
+        "collaborators": false,
+        "roles": false,
+        "charts": false,
+        "roster": false,
+        "staff": false,
+        "subsidiaries": false,
+        "alumni": false,
+        "pws": false
+      },
+      "profile": {
+        "avatarUrl": "https://assets-cdn-prod.muso.ai/images/avatar/e47af01c-e51d-442b-92c9-627495d08ee7_7a8e524d-d271-41b2-b185-f2dd2a548e1d.jpeg",
+        "id": "e47af01c-e51d-442b-92c9-627495d08ee7",
+        "title": "Roman (Rosé) Hansen",
+        "rank": 3,
+        "credits": [
+          "Engineer",
+          "Producer",
+          "Songwriter"
+        ],
+        "address": "London, United Kingdom",
+        "creditCount": 45,
+        "followsCount": 0,
+        "bio": null,
+        "albumCount": 0,
+        "collaboratorCount": 82,
+        "recentCreditsCount": 10,
+        "popularity": 65,
+        "playlist": {
+          "spotifyId": "18w19RYmVMfUqqfhcQsFAg",
+          "title": "Roman (Rosé) Hansen - Discography",
+          "status": "completed",
+          "spotifyLink": "https://open.spotify.com/playlist/18w19RYmVMfUqqfhcQsFAg",
+          "avatarUrl": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84579abb117e32004c54b6c6cf"
+        },
+        "artists": [],
+        "members": [],
+        "memberOfs": [],
+        "claim_status": "BLOCKED",
+        "socials": {
+          "spotify": "",
+          "facebook": "",
+          "instagram": "https://www.instagram.com/mixedbyrose/",
+          "website": "https://www.tiktok.com/@rosemixing",
+          "twitter": "",
+          "youtube": ""
+        },
+        "membershipTypes": [
+          {
+            "type": "artist",
+            "count": 0
+          }
+        ],
+        "subType": "artist"
+      },
+      "credits": [
+        {
+          "credits": [
+            "Engineer"
+          ],
+          "track": {
+            "id": "aedaa1b1-74a1-43f1-b5cb-98cc9b972ef8",
+            "title": "Ibiza (feat. Blade Brown)",
+            "popularity": 66,
+            "rank": 3,
+            "previewUrl": "https://p.scdn.co/mp3-preview/1082acdcce5888ec10a9ed86407ba54772648da3",
+            "spotifyId": "6ZUdxfXm45SKQ5WcFA2OGS"
+          },
+          "album": {
+            "id": "d4beb5ba-6df2-4749-a2bd-da63b0969067",
+            "title": "Ibiza (feat. Blade Brown)",
+            "avatarUrl": "https://i.scdn.co/image/ab67616d00004851581b79a24e31f6fd9e029aac",
+            "avatarUrl_640_640": "https://i.scdn.co/image/ab67616d0000b273581b79a24e31f6fd9e029aac"
+          },
+          "releaseDate": "2026-01-29",
+          "artists": [
+            {
+              "id": "28cbf3b3-eece-411a-a834-64a23b5e1851",
+              "name": "AJ Tracey",
+              "avatarUrl": "https://assets-cdn-prod.muso.ai/images/avatar/28cbf3b3-eece-411a-a834-64a23b5e1851.jpeg"
+            },
+            {
+              "id": "90dfb177-abcc-4e3f-8d08-b1f5091f023b",
+              "name": "Blade Brown",
+              "avatarUrl": "https://i.scdn.co/image/ab6761610000f17852d47f6f6b960fc1de9b7f29"
+            },
+            {
+              "id": "98f730fb-6b1e-4991-a4e5-14b9dad9cea8",
+              "name": "Carns Hill",
+              "avatarUrl": "https://i.scdn.co/image/ab6761610000e5ebfa193ed444f1f25e2ecd3a7d"
+            }
+          ],
+          "credit": [
+            "Engineer"
+          ]
+        },
+        {
+          "credits": [
+            "Producer",
+            "Mastering",
+            "Mixing",
+            "Engineer"
+          ],
+          "track": {
+            "id": "0bf34f41-e1f1-4037-b70c-51825039d635",
+            "title": "100£",
+            "popularity": 47,
+            "rank": 4,
+            "previewUrl": "https://p.scdn.co/mp3-preview/bcb124c82c41f7d8fe751b7aaec9fe0560b2d419",
+            "spotifyId": "0sqqqTFV111mfTH14S0rNz"
+          },
+          "album": {
+            "id": "220fdf7a-f366-4291-825c-5d35f92a08d2",
+            "title": "100£",
+            "avatarUrl": "https://i.scdn.co/image/ab67616d000048512ab54c1e0e0f364d60b35982",
+            "avatarUrl_640_640": "https://i.scdn.co/image/ab67616d0000b2732ab54c1e0e0f364d60b35982"
+          },
+          "releaseDate": "2025-06-06",
+          "artists": [
+            {
+              "id": "1c0586b4-d8c5-466c-a7e0-5dc417b3339a",
+              "name": "Rheez.",
+              "avatarUrl": "https://i.scdn.co/image/ab6761610000f1789eff991f88390d25b5d7c9a9"
+            }
+          ],
+          "credit": [
+            "Producer",
+            "Mastering",
+            "Mixing",
+            "Engineer"
+          ]
+        },
+        {
+          "credits": [
+            "Co-Producer",
+            "Producer",
+            "Engineer"
+          ],
+          "track": {
+            "id": "4155402b-812b-4f24-a988-35881744da7d",
+            "title": "Turn Up The Radio",
+            "popularity": 47,
+            "rank": 4,
+            "previewUrl": "https://p.scdn.co/mp3-preview/82102c06d6ab38b4db3f7e503b2c9ab5d5352d77",
+            "spotifyId": "0mxL8LdO634SxsTJ034Vwo"
+          },
+          "album": {
+            "id": "a72b6f1f-5fd3-4e7f-ab11-5366ba603c26",
+            "title": "Turn Up The Radio",
+            "avatarUrl": "https://i.scdn.co/image/ab67616d00004851daf73e4a80e727ff57905cad",
+            "avatarUrl_640_640": "https://i.scdn.co/image/ab67616d0000b273daf73e4a80e727ff57905cad"
+          },
+          "releaseDate": "2026-01-16",
+          "artists": [
+            {
+              "id": "b158f8d8-ebe0-431e-8996-965b4144728e",
+              "name": "Danny Ray",
+              "avatarUrl": "https://i.scdn.co/image/ab6761610000f178f21dc5d02c70c4a1d1511781"
+            }
+          ],
+          "credit": [
+            "Co-Producer",
+            "Producer",
+            "Engineer"
+          ]
+        },
+        {
+          "credits": [
+            "Mastering",
+            "Mixing",
+            "Engineer"
+          ],
+          "track": {
+            "id": "8c94a976-65b3-402d-8209-82aa1766e1a7",
+            "title": "Plenty",
+            "popularity": 46,
+            "rank": 4,
+            "previewUrl": "https://p.scdn.co/mp3-preview/2305001080e98c8e088146cafef615d883a0c956",
+            "spotifyId": "190N0AJeGYbHfY18Gv8rZU"
+          },
+          "album": {
+            "id": "09709a40-4539-45b9-82a8-1a98d2d9124e",
+            "title": "Plenty",
+            "avatarUrl": "https://i.scdn.co/image/ab67616d00004851310ad055b0362f4ab42f100a",
+            "avatarUrl_640_640": "https://i.scdn.co/image/ab67616d0000b273310ad055b0362f4ab42f100a"
+          },
+          "releaseDate": "2024-11-28",
+          "artists": [
+            {
+              "id": "1c0586b4-d8c5-466c-a7e0-5dc417b3339a",
+              "name": "Rheez.",
+              "avatarUrl": "https://i.scdn.co/image/ab6761610000f1789eff991f88390d25b5d7c9a9"
+            }
+          ],
+          "credit": [
+            "Mastering",
+            "Mixing",
+            "Engineer"
+          ]
+        },
+        {
+          "credits": [
+            "Mixing",
+            "Mastering"
+          ],
+          "track": {
+            "id": "9170ce86-f020-4bab-a6e1-c82d73be01ed",
+            "title": "gotta go",
+            "popularity": 41,
+            "rank": 4,
+            "previewUrl": "https://p.scdn.co/mp3-preview/e5a04f92b1d0dd4f415a06565cbaa740e9eed761",
+            "spotifyId": "4vemNtc49DTOC9msYE5wge"
+          },
+          "album": {
+            "id": "75286a30-8a2d-4b9c-bfc5-da184913f379",
+            "title": "it's all up in the air.",
+            "avatarUrl": "https://i.scdn.co/image/ab67616d0000485173cf43f879009e325ea05d7d",
+            "avatarUrl_640_640": "https://i.scdn.co/image/ab67616d0000b27373cf43f879009e325ea05d7d"
+          },
+          "releaseDate": "2025-11-11",
+          "artists": [
+            {
+              "id": "c4d21419-9c53-4dde-80bd-0a017bcaae23",
+              "name": "Pozzy",
+              "avatarUrl": "https://i.scdn.co/image/ab6761610000f178b416e2f047123612e651bbe3"
+            }
+          ],
+          "credit": [
+            "Mixing",
+            "Mastering"
+          ]
+        },
+        {
+          "credits": [
+            "Mastering",
+            "Mixing",
+            "Engineer"
+          ],
+          "track": {
+            "id": "990d69d4-47c5-4213-95b2-b6e0ed5ed511",
+            "title": "RTB FREESTYLE",
+            "popularity": 41,
+            "rank": 4,
+            "previewUrl": "https://p.scdn.co/mp3-preview/256b822ab5ba0b506bed8e744a0740d682202093",
+            "spotifyId": "0DEN1ymKjzeoCGKd0GdpeH"
+          },
+          "album": {
+            "id": "96497b31-2ead-4079-828e-a0d519b5bc69",
+            "title": "RTB FREESTYLE",
+            "avatarUrl": "https://i.scdn.co/image/ab67616d000048517db96a7e292ceb791c891dad",
+            "avatarUrl_640_640": "https://i.scdn.co/image/ab67616d0000b2737db96a7e292ceb791c891dad"
+          },
+          "releaseDate": "2024-07-21",
+          "artists": [
+            {
+              "id": "5035cfa6-76a6-477a-a34b-0bda0ccdc2a3",
+              "name": "CA$PAR",
+              "avatarUrl": "https://i.scdn.co/image/ab6761610000f178b8180baab02b752c09c73883"
+            }
+          ],
+          "credit": [
+            "Mastering",
+            "Mixing",
+            "Engineer"
+          ]
+        },
+        {
+          "credits": [
+            "Mixing",
+            "Mastering"
+          ],
+          "track": {
+            "id": "d1364870-bdfc-45ce-83cd-ce952b53f5cd",
+            "title": "No Patience",
+            "popularity": 41,
+            "rank": 4,
+            "previewUrl": "https://p.scdn.co/mp3-preview/553201f7d415c1046a31bafae92165b18dcd74d0",
+            "spotifyId": "4AxQBmsCZhV1DzrzVnSlsB"
+          },
+          "album": {
+            "id": "74df3f21-b37d-4e2b-94dc-78732ed68e43",
+            "title": "No Patience",
+            "avatarUrl": "https://i.scdn.co/image/ab67616d000048512a0da86581d4d9400c59db1a",
+            "avatarUrl_640_640": "https://i.scdn.co/image/ab67616d0000b2732a0da86581d4d9400c59db1a"
+          },
+          "releaseDate": "2025-09-19",
+          "artists": [
+            {
+              "id": "6bd89618-6b2a-42d7-a06b-de4720501407",
+              "name": "Niels",
+              "avatarUrl": "https://i.scdn.co/image/ab6761610000f17877835a656429fa06702a9a93"
+            }
+          ],
+          "credit": [
+            "Mixing",
+            "Mastering"
+          ]
+        }
+      ],
+      "collaborators": [
+        {
+          "collaborators": {
+            "id": "6bd89618-6b2a-42d7-a06b-de4720501407",
+            "label": "artist",
+            "name": "Niels",
+            "popularity": 67,
+            "commonCredits": [
+              "Artist",
+              "Producer",
+              "Songwriter"
+            ],
+            "avatarUrl": "https://i.scdn.co/image/ab6761610000e5eb77835a656429fa06702a9a93",
+            "rank": 3
+          },
+          "collaboratorsCount": 9,
+          "collaborationsCount": 9,
+          "creditsCount": 258,
+          "lastCollaborationDate": "2026-03-20",
+          "type": "artist",
+          "subType": "artist"
+        },
+        {
+          "collaborators": {
+            "id": "dec330e1-7bcc-4a7d-ad55-fc03d8b2f824",
+            "label": "artist",
+            "name": "Niels David",
+            "popularity": 65,
+            "commonCredits": [
+              "Songwriter",
+              "Producer"
+            ],
+            "avatarUrl": "",
+            "rank": 3
+          },
+          "collaboratorsCount": 9,
+          "collaborationsCount": 9,
+          "creditsCount": 39,
+          "lastCollaborationDate": "2026-03-20",
+          "type": "artist",
+          "subType": "artist"
+        },
+        {
+          "collaborators": {
+            "id": "622f84c7-72ff-4a8a-9e71-67640b515c31",
+            "label": "artist",
+            "name": "Barbara Sarkozi",
+            "popularity": 47,
+            "commonCredits": [
+              "Songwriter",
+              "Producer",
+              "Musician"
+            ],
+            "avatarUrl": "",
+            "rank": 4
+          },
+          "collaboratorsCount": 8,
+          "collaborationsCount": 8,
+          "creditsCount": 11,
+          "lastCollaborationDate": "2025-06-20",
+          "type": "artist",
+          "subType": "artist"
+        },
+        {
+          "collaborators": {
+            "id": "7ee59ad7-c26c-43a9-b973-f33bbcf14ed2",
+            "label": "artist",
+            "name": "Babé Sila",
+            "popularity": 47,
+            "commonCredits": [
+              "Artist",
+              "Songwriter"
+            ],
+            "avatarUrl": "https://i.scdn.co/image/ab6761610000e5ebb68f678b8bb3b18805a04563",
+            "rank": 4
+          },
+          "collaboratorsCount": 7,
+          "collaborationsCount": 7,
+          "creditsCount": 53,
+          "lastCollaborationDate": "2025-06-20",
+          "type": "artist",
+          "subType": "artist"
+        },
+        {
+          "collaborators": {
+            "id": "c4d21419-9c53-4dde-80bd-0a017bcaae23",
+            "label": "artist",
+            "name": "Pozzy",
+            "popularity": 55,
+            "commonCredits": [
+              "Artist",
+              "Producer"
+            ],
+            "avatarUrl": "https://i.scdn.co/image/ab6761610000e5ebb416e2f047123612e651bbe3",
+            "rank": 3
+          },
+          "collaboratorsCount": 7,
+          "collaborationsCount": 7,
+          "creditsCount": 31,
+          "lastCollaborationDate": "2025-11-11",
+          "type": "artist",
+          "subType": "artist"
+        },
+        {
+          "collaborators": {
+            "id": "ff01ac59-908d-4919-ba41-9f088d4422fe",
+            "label": "artist",
+            "name": "Cole YoursTruly.",
+            "popularity": 76,
+            "commonCredits": [
+              "Producer"
+            ],
+            "avatarUrl": "https://assets-cdn-prod.muso.ai/images/avatar/ff01ac59-908d-4919-ba41-9f088d4422fe_d39577de-ba20-4ee4-95ff-a4bcce5fdc3c.jpeg",
+            "rank": 2
+          },
+          "collaboratorsCount": 6,
+          "collaborationsCount": 6,
+          "creditsCount": 117,
+          "lastCollaborationDate": "2025-06-20",
+          "type": "artist",
+          "subType": "artist"
+        },
+        {
+          "collaborators": {
+            "id": "651179a4-8b24-498e-8cc5-abd7c095ff88",
+            "label": "artist",
+            "name": "Jerome Sylvester",
+            "popularity": 46,
+            "commonCredits": [
+              "Songwriter",
+              "Producer"
+            ],
+            "avatarUrl": "",
+            "rank": 4
+          },
+          "collaboratorsCount": 5,
+          "collaborationsCount": 5,
+          "creditsCount": 19,
+          "lastCollaborationDate": "2025-08-27",
+          "type": "artist",
+          "subType": "artist"
+        }
+      ],
+      "rosterWidgetActiveTabType": null,
+      "type": "professional",
+      "roles": {
+        "credits": [
+          {
+            "parent": "Engineer",
+            "instrumentFamily": "",
+            "creditCount": 32,
+            "name": "Mixing",
+            "child": "Mixing"
+          },
+          {
+            "parent": "Engineer",
+            "instrumentFamily": "",
+            "creditCount": 31,
+            "name": "Mastering",
+            "child": "Mastering"
+          },
+          {
+            "parent": "Producers",
+            "instrumentFamily": "",
+            "creditCount": 12,
+            "name": "Producer",
+            "child": "Producer"
+          },
+          {
+            "parent": "Songwriter",
+            "instrumentFamily": "",
+            "creditCount": 9,
+            "name": "Composer",
+            "child": "Composer"
+          },
+          {
+            "parent": "Engineer",
+            "instrumentFamily": "",
+            "creditCount": 9,
+            "name": "Engineer",
+            "child": "Engineer"
+          },
+          {
+            "parent": "Producers",
+            "instrumentFamily": "",
+            "creditCount": 3,
+            "name": "Co-Producer",
+            "child": "Co-Producer"
+          }
+        ],
+        "pendingCreditsCount": null
+      },
+      "isClaimedByWorkspace": false,
+      "isSocials": true,
+      "affiliations": [],
+      "loadingGraphs": true,
+      "activities": [
+        {
+          "id": "d1be6d60-f509-4876-9fb9-6ca9f5144ce9",
+          "time": "2026-03-11T00:00:00Z",
+          "activityType": "new_credits",
+          "actorId": "e47af01c-e51d-442b-92c9-627495d08ee7",
+          "actorType": "artist",
+          "actorName": "Roman (Rosé) Hansen",
+          "actorTitle": "Engineer, Producer, Songwriter",
+          "actorAvatarUrl": "https://assets-cdn-prod.muso.ai/images/avatar/e47af01c-e51d-442b-92c9-627495d08ee7_7a8e524d-d271-41b2-b185-f2dd2a548e1d.jpeg",
+          "actorUrl": "https://credits.muso.ai/profile/e47af01c-e51d-442b-92c9-627495d08ee7",
+          "postTitle": "1 new credit added",
+          "postText": null,
+          "lastInTheCycle": null,
+          "ownReactions": {
+            "like": null
+          },
+          "reactionsCount": {
+            "like": 0
+          },
+          "media": [
+            {
+              "id": "8c94a976-65b3-402d-8209-82aa1766e1a7",
+              "type": "track",
+              "imageUrl": "https://i.scdn.co/image/ab67616d0000b273310ad055b0362f4ab42f100a",
+              "title": "Plenty",
+              "subTitle": "Rheez.",
+              "previewUrl": "https://p.scdn.co/mp3-preview/2305001080e98c8e088146cafef615d883a0c956",
+              "text": "Mastering, Engineer, Mixing",
+              "credits": [
+                "Mastering",
+                "Engineer",
+                "Mixing"
+              ]
+            }
+          ],
+          "isClaimed": true
+        },
+        {
+          "id": "42b53de9-7906-4e5d-afd7-e7f487124abd",
+          "time": "2026-02-23T00:00:00Z",
+          "activityType": "track_milestone",
+          "actorId": "e47af01c-e51d-442b-92c9-627495d08ee7",
+          "actorType": "artist",
+          "actorName": "Roman (Rosé) Hansen",
+          "actorTitle": "Engineer, Producer, Songwriter",
+          "actorAvatarUrl": "https://assets-cdn-prod.muso.ai/images/avatar/e47af01c-e51d-442b-92c9-627495d08ee7_7a8e524d-d271-41b2-b185-f2dd2a548e1d.jpeg",
+          "actorUrl": "https://credits.muso.ai/profile/e47af01c-e51d-442b-92c9-627495d08ee7",
+          "postTitle": "New milestone reached",
+          "postText": null,
+          "lastInTheCycle": null,
+          "ownReactions": {
+            "like": null
+          },
+          "reactionsCount": {
+            "like": 0
+          },
+          "media": [
+            {
+              "id": "2b41e684-96e5-4904-8ae6-461bd6aabf4e",
+              "type": "track_milestone",
+              "imageUrl": "https://i.scdn.co/image/ab67616d0000b27373cf43f879009e325ea05d7d",
+              "title": "wait and see",
+              "subTitle": "Pozzy",
+              "previewUrl": "https://p.scdn.co/mp3-preview/00f09cf7f9e084684829e81755b1155970c1d9e2",
+              "text": "Mastering, Mixing",
+              "credits": [
+                "Mastering",
+                "Mixing"
+              ],
+              "milestoneType": "bronze",
+              "milestoneCount": 1,
+              "streams": 100000
+            }
+          ],
+          "isClaimed": true
+        }
+      ],
+      "summary": {
+        "id": "e47af01c-e51d-442b-92c9-627495d08ee7",
+        "followsCount": 0,
+        "creditCount": 45,
+        "collaboratorCount": 82,
+        "recentCreditsCount": 10,
+        "pendingCreditsCount": 0
+      },
+      "showRosterPWS": false,
+      "showProfilePWS": true,
+      "adaptLabelsToCollaborators": [],
+      "adaptPublishersToCollaborators": [],
+      "isOrganization": false,
+      "pwsLocked": true,
+      "canBeClaimed": false,
+      "profileToClaim": {
+        "id": "e47af01c-e51d-442b-92c9-627495d08ee7",
+        "name": "Roman (Rosé) Hansen",
+        "avatarUrl": "https://assets-cdn-prod.muso.ai/images/avatar/e47af01c-e51d-442b-92c9-627495d08ee7_7a8e524d-d271-41b2-b185-f2dd2a548e1d.jpeg",
+        "commonCredits": [
+          "Engineer",
+          "Producer",
+          "Songwriter"
+        ],
+        "type": "artist",
+        "creditCount": 45,
+        "claim_status": "BLOCKED"
+      },
+      "showCollaboratorsWidget": true,
+      "showCreditsWidget": 6,
+      "showRosterWidget": false,
+      "showStaffWidget": false,
+      "showAlumniWidget": false,
+      "replacedCredits": [
+        {
+          "credits": [
+            "Engineer"
+          ],
+          "track": {
+            "id": "aedaa1b1-74a1-43f1-b5cb-98cc9b972ef8",
+            "title": "Ibiza (feat. Blade Brown)",
+            "popularity": 66,
+            "rank": 3,
+            "previewUrl": "https://p.scdn.co/mp3-preview/1082acdcce5888ec10a9ed86407ba54772648da3",
+            "spotifyId": "6ZUdxfXm45SKQ5WcFA2OGS"
+          },
+          "album": {
+            "id": "d4beb5ba-6df2-4749-a2bd-da63b0969067",
+            "title": "Ibiza (feat. Blade Brown)",
+            "avatarUrl": "https://i.scdn.co/image/ab67616d00004851581b79a24e31f6fd9e029aac",
+            "avatarUrl_640_640": "https://i.scdn.co/image/ab67616d0000b273581b79a24e31f6fd9e029aac"
+          },
+          "releaseDate": "2026-01-29",
+          "artists": [
+            {
+              "id": "28cbf3b3-eece-411a-a834-64a23b5e1851",
+              "name": "AJ Tracey",
+              "avatarUrl": "https://assets-cdn-prod.muso.ai/images/avatar/28cbf3b3-eece-411a-a834-64a23b5e1851.jpeg"
+            },
+            {
+              "id": "90dfb177-abcc-4e3f-8d08-b1f5091f023b",
+              "name": "Blade Brown",
+              "avatarUrl": "https://i.scdn.co/image/ab6761610000f17852d47f6f6b960fc1de9b7f29"
+            },
+            {
+              "id": "98f730fb-6b1e-4991-a4e5-14b9dad9cea8",
+              "name": "Carns Hill",
+              "avatarUrl": "https://i.scdn.co/image/ab6761610000e5ebfa193ed444f1f25e2ecd3a7d"
+            }
+          ],
+          "credit": [
+            "Engineer"
+          ]
+        },
+        {
+          "credits": [
+            "Producer",
+            "Mastering",
+            "Mixing",
+            "Engineer"
+          ],
+          "track": {
+            "id": "0bf34f41-e1f1-4037-b70c-51825039d635",
+            "title": "100£",
+            "popularity": 47,
+            "rank": 4,
+            "previewUrl": "https://p.scdn.co/mp3-preview/bcb124c82c41f7d8fe751b7aaec9fe0560b2d419",
+            "spotifyId": "0sqqqTFV111mfTH14S0rNz"
+          },
+          "album": {
+            "id": "220fdf7a-f366-4291-825c-5d35f92a08d2",
+            "title": "100£",
+            "avatarUrl": "https://i.scdn.co/image/ab67616d000048512ab54c1e0e0f364d60b35982",
+            "avatarUrl_640_640": "https://i.scdn.co/image/ab67616d0000b2732ab54c1e0e0f364d60b35982"
+          },
+          "releaseDate": "2025-06-06",
+          "artists": [
+            {
+              "id": "1c0586b4-d8c5-466c-a7e0-5dc417b3339a",
+              "name": "Rheez.",
+              "avatarUrl": "https://i.scdn.co/image/ab6761610000f1789eff991f88390d25b5d7c9a9"
+            }
+          ],
+          "credit": [
+            "Producer",
+            "Mastering",
+            "Mixing",
+            "Engineer"
+          ]
+        },
+        {
+          "credits": [
+            "Co-Producer",
+            "Producer",
+            "Engineer"
+          ],
+          "track": {
+            "id": "4155402b-812b-4f24-a988-35881744da7d",
+            "title": "Turn Up The Radio",
+            "popularity": 47,
+            "rank": 4,
+            "previewUrl": "https://p.scdn.co/mp3-preview/82102c06d6ab38b4db3f7e503b2c9ab5d5352d77",
+            "spotifyId": "0mxL8LdO634SxsTJ034Vwo"
+          },
+          "album": {
+            "id": "a72b6f1f-5fd3-4e7f-ab11-5366ba603c26",
+            "title": "Turn Up The Radio",
+            "avatarUrl": "https://i.scdn.co/image/ab67616d00004851daf73e4a80e727ff57905cad",
+            "avatarUrl_640_640": "https://i.scdn.co/image/ab67616d0000b273daf73e4a80e727ff57905cad"
+          },
+          "releaseDate": "2026-01-16",
+          "artists": [
+            {
+              "id": "b158f8d8-ebe0-431e-8996-965b4144728e",
+              "name": "Danny Ray",
+              "avatarUrl": "https://i.scdn.co/image/ab6761610000f178f21dc5d02c70c4a1d1511781"
+            }
+          ],
+          "credit": [
+            "Co-Producer",
+            "Producer",
+            "Engineer"
+          ]
+        },
+        {
+          "credits": [
+            "Mastering",
+            "Mixing",
+            "Engineer"
+          ],
+          "track": {
+            "id": "8c94a976-65b3-402d-8209-82aa1766e1a7",
+            "title": "Plenty",
+            "popularity": 46,
+            "rank": 4,
+            "previewUrl": "https://p.scdn.co/mp3-preview/2305001080e98c8e088146cafef615d883a0c956",
+            "spotifyId": "190N0AJeGYbHfY18Gv8rZU"
+          },
+          "album": {
+            "id": "09709a40-4539-45b9-82a8-1a98d2d9124e",
+            "title": "Plenty",
+            "avatarUrl": "https://i.scdn.co/image/ab67616d00004851310ad055b0362f4ab42f100a",
+            "avatarUrl_640_640": "https://i.scdn.co/image/ab67616d0000b273310ad055b0362f4ab42f100a"
+          },
+          "releaseDate": "2024-11-28",
+          "artists": [
+            {
+              "id": "1c0586b4-d8c5-466c-a7e0-5dc417b3339a",
+              "name": "Rheez.",
+              "avatarUrl": "https://i.scdn.co/image/ab6761610000f1789eff991f88390d25b5d7c9a9"
+            }
+          ],
+          "credit": [
+            "Mastering",
+            "Mixing",
+            "Engineer"
+          ]
+        },
+        {
+          "credits": [
+            "Mixing",
+            "Mastering"
+          ],
+          "track": {
+            "id": "9170ce86-f020-4bab-a6e1-c82d73be01ed",
+            "title": "gotta go",
+            "popularity": 41,
+            "rank": 4,
+            "previewUrl": "https://p.scdn.co/mp3-preview/e5a04f92b1d0dd4f415a06565cbaa740e9eed761",
+            "spotifyId": "4vemNtc49DTOC9msYE5wge"
+          },
+          "album": {
+            "id": "75286a30-8a2d-4b9c-bfc5-da184913f379",
+            "title": "it's all up in the air.",
+            "avatarUrl": "https://i.scdn.co/image/ab67616d0000485173cf43f879009e325ea05d7d",
+            "avatarUrl_640_640": "https://i.scdn.co/image/ab67616d0000b27373cf43f879009e325ea05d7d"
+          },
+          "releaseDate": "2025-11-11",
+          "artists": [
+            {
+              "id": "c4d21419-9c53-4dde-80bd-0a017bcaae23",
+              "name": "Pozzy",
+              "avatarUrl": "https://i.scdn.co/image/ab6761610000f178b416e2f047123612e651bbe3"
+            }
+          ],
+          "credit": [
+            "Mixing",
+            "Mastering"
+          ]
+        },
+        {
+          "credits": [
+            "Mastering",
+            "Mixing",
+            "Engineer"
+          ],
+          "track": {
+            "id": "990d69d4-47c5-4213-95b2-b6e0ed5ed511",
+            "title": "RTB FREESTYLE",
+            "popularity": 41,
+            "rank": 4,
+            "previewUrl": "https://p.scdn.co/mp3-preview/256b822ab5ba0b506bed8e744a0740d682202093",
+            "spotifyId": "0DEN1ymKjzeoCGKd0GdpeH"
+          },
+          "album": {
+            "id": "96497b31-2ead-4079-828e-a0d519b5bc69",
+            "title": "RTB FREESTYLE",
+            "avatarUrl": "https://i.scdn.co/image/ab67616d000048517db96a7e292ceb791c891dad",
+            "avatarUrl_640_640": "https://i.scdn.co/image/ab67616d0000b2737db96a7e292ceb791c891dad"
+          },
+          "releaseDate": "2024-07-21",
+          "artists": [
+            {
+              "id": "5035cfa6-76a6-477a-a34b-0bda0ccdc2a3",
+              "name": "CA$PAR",
+              "avatarUrl": "https://i.scdn.co/image/ab6761610000f178b8180baab02b752c09c73883"
+            }
+          ],
+          "credit": [
+            "Mastering",
+            "Mixing",
+            "Engineer"
+          ]
+        }
+      ],
+      "allowClaiming": false,
+      "showClaimPendingNotification": false,
+      "isViewedFromWorkspace": false,
+      "isInOwnWorkspace": false,
+      "pwsResponse": {
+        "profileStats": null,
+        "combinedRostersStats": null
+      },
+      "showPublishersWidget": 0,
+      "publisherAffiliations": {
+        "items": [],
+        "totalCount": 0
+      },
+      "labelAffiliations": {
+        "items": [],
+        "totalCount": 0
+      },
+      "showLabelsWidget": 0,
+      "labelAffiliationType": "profile-labels",
+      "labelAffiliationLabel": "Released on",
+      "publisherAffiliationType": "profile-publishers",
+      "publisherAffiliationLabel": "Published by",
+      "hasAnyWidgetRole": true,
+      "isInRoster": false,
+      "rosterMembers": {
+        "items": [],
+        "totalCount": 0
+      },
+      "filteredRosterMembershipTypes": [],
+      "staff": {
+        "items": [],
+        "totalCount": 0
+      },
+      "replacedCollaborators": [
+        {
+          "collaborators": {
+            "id": "6bd89618-6b2a-42d7-a06b-de4720501407",
+            "label": "artist",
+            "name": "Niels",
+            "popularity": 67,
+            "commonCredits": [
+              "Artist",
+              "Producer",
+              "Songwriter"
+            ],
+            "avatarUrl": "https://i.scdn.co/image/ab6761610000e5eb77835a656429fa06702a9a93",
+            "rank": 3
+          },
+          "collaboratorsCount": 9,
+          "collaborationsCount": 9,
+          "creditsCount": 258,
+          "lastCollaborationDate": "2026-03-20",
+          "type": "artist",
+          "subType": "artist"
+        },
+        {
+          "collaborators": {
+            "id": "dec330e1-7bcc-4a7d-ad55-fc03d8b2f824",
+            "label": "artist",
+            "name": "Niels David",
+            "popularity": 65,
+            "commonCredits": [
+              "Songwriter",
+              "Producer"
+            ],
+            "avatarUrl": "",
+            "rank": 3
+          },
+          "collaboratorsCount": 9,
+          "collaborationsCount": 9,
+          "creditsCount": 39,
+          "lastCollaborationDate": "2026-03-20",
+          "type": "artist",
+          "subType": "artist"
+        },
+        {
+          "collaborators": {
+            "id": "622f84c7-72ff-4a8a-9e71-67640b515c31",
+            "label": "artist",
+            "name": "Barbara Sarkozi",
+            "popularity": 47,
+            "commonCredits": [
+              "Songwriter",
+              "Producer",
+              "Musician"
+            ],
+            "avatarUrl": "",
+            "rank": 4
+          },
+          "collaboratorsCount": 8,
+          "collaborationsCount": 8,
+          "creditsCount": 11,
+          "lastCollaborationDate": "2025-06-20",
+          "type": "artist",
+          "subType": "artist"
+        },
+        {
+          "collaborators": {
+            "id": "7ee59ad7-c26c-43a9-b973-f33bbcf14ed2",
+            "label": "artist",
+            "name": "Babé Sila",
+            "popularity": 47,
+            "commonCredits": [
+              "Artist",
+              "Songwriter"
+            ],
+            "avatarUrl": "https://i.scdn.co/image/ab6761610000e5ebb68f678b8bb3b18805a04563",
+            "rank": 4
+          },
+          "collaboratorsCount": 7,
+          "collaborationsCount": 7,
+          "creditsCount": 53,
+          "lastCollaborationDate": "2025-06-20",
+          "type": "artist",
+          "subType": "artist"
+        },
+        {
+          "collaborators": {
+            "id": "c4d21419-9c53-4dde-80bd-0a017bcaae23",
+            "label": "artist",
+            "name": "Pozzy",
+            "popularity": 55,
+            "commonCredits": [
+              "Artist",
+              "Producer"
+            ],
+            "avatarUrl": "https://i.scdn.co/image/ab6761610000e5ebb416e2f047123612e651bbe3",
+            "rank": 3
+          },
+          "collaboratorsCount": 7,
+          "collaborationsCount": 7,
+          "creditsCount": 31,
+          "lastCollaborationDate": "2025-11-11",
+          "type": "artist",
+          "subType": "artist"
+        },
+        {
+          "collaborators": {
+            "id": "ff01ac59-908d-4919-ba41-9f088d4422fe",
+            "label": "artist",
+            "name": "Cole YoursTruly.",
+            "popularity": 76,
+            "commonCredits": [
+              "Producer"
+            ],
+            "avatarUrl": "https://assets-cdn-prod.muso.ai/images/avatar/ff01ac59-908d-4919-ba41-9f088d4422fe_d39577de-ba20-4ee4-95ff-a4bcce5fdc3c.jpeg",
+            "rank": 2
+          },
+          "collaboratorsCount": 6,
+          "collaborationsCount": 6,
+          "creditsCount": 117,
+          "lastCollaborationDate": "2025-06-20",
+          "type": "artist",
+          "subType": "artist"
+        }
+      ],
+      "activeAccountId": null,
+      "charts": [
+        {
+          "position": 5536,
+          "positionChange": -84,
+          "score": 1153,
+          "scoreChange": 0,
+          "creditsCount": 31,
+          "creditsCountChange": 0,
+          "percentage": 2.7783632950906885,
+          "chart": {
+            "ranges": [
+              {
+                "start": "2026-04-03",
+                "end": "2026-04-09"
+              }
+            ],
+            "id": "mastering",
+            "color": "#ED8E49",
+            "chartName": "Mastering Engineers",
+            "icon": "engineer",
+            "roleName": "Mastering Engineer",
+            "role": "Mastering",
+            "chartTileBGImage": "https://assets-cdn-prod.muso.ai/mobile/insights/charts/chart_tile_bg/mastering.png",
+            "chartPageBGImage": "https://assets-cdn-prod.muso.ai/mobile/insights/charts/chart_page_bg/mastering.png",
+            "chartCardBGImage": "https://assets-cdn-prod.muso.ai/mobile/insights/charts/chart_card_bg/mastering.png"
+          }
+        },
+        {
+          "position": 10432,
+          "positionChange": -133,
+          "score": 1201,
+          "scoreChange": 0,
+          "creditsCount": 32,
+          "creditsCountChange": 0,
+          "percentage": 2.875151929400027,
+          "chart": {
+            "ranges": [
+              {
+                "start": "2026-04-03",
+                "end": "2026-04-09"
+              }
+            ],
+            "id": "mixing",
+            "color": "#ED8E49",
+            "chartName": "Mixing Engineers",
+            "icon": "engineer",
+            "roleName": "Mixing Engineer",
+            "role": "Mixing",
+            "chartTileBGImage": "https://assets-cdn-prod.muso.ai/mobile/insights/charts/chart_tile_bg/mixing.png",
+            "chartPageBGImage": "https://assets-cdn-prod.muso.ai/mobile/insights/charts/chart_page_bg/mixing.png",
+            "chartCardBGImage": "https://assets-cdn-prod.muso.ai/mobile/insights/charts/chart_card_bg/mixing.png"
+          }
+        }
+      ],
+      "showShareButton": false,
+      "endorsers": [],
+      "subsidiaries": {
+        "items": [],
+        "totalCount": 0
+      },
+      "parentOrg": [],
+      "education": [],
+      "employment": [],
+      "showRolesWidget": 6,
+      "bio": null,
+      "mappedRoles": [
+        {
+          "name": "Mixing",
+          "creditCount": 32,
+          "icon": "icomoon-engineer",
+          "id": "Mixing"
+        },
+        {
+          "name": "Mastering",
+          "creditCount": 31,
+          "icon": "icomoon-engineer",
+          "id": "Mastering"
+        },
+        {
+          "name": "Producer",
+          "creditCount": 12,
+          "icon": "icomoon-producer",
+          "id": "Producer"
+        },
+        {
+          "name": "Composer",
+          "creditCount": 9,
+          "icon": "icomoon-songwriters",
+          "id": "Composer"
+        },
+        {
+          "name": "Engineer",
+          "creditCount": 9,
+          "icon": "icomoon-engineer",
+          "id": "Engineer"
+        },
+        {
+          "name": "Co-Producer",
+          "creditCount": 3,
+          "icon": "icomoon-producer",
+          "id": "Co-Producer"
+        }
+      ],
+      "reducedRoles": [
+        {
+          "name": "Mixing",
+          "creditCount": 32,
+          "icon": "icomoon-engineer",
+          "id": "Mixing"
+        },
+        {
+          "name": "Mastering",
+          "creditCount": 31,
+          "icon": "icomoon-engineer",
+          "id": "Mastering"
+        },
+        {
+          "name": "Producer",
+          "creditCount": 12,
+          "icon": "icomoon-producer",
+          "id": "Producer"
+        },
+        {
+          "name": "Composer",
+          "creditCount": 9,
+          "icon": "icomoon-songwriters",
+          "id": "Composer"
+        },
+        {
+          "name": "Engineer",
+          "creditCount": 9,
+          "icon": "icomoon-engineer",
+          "id": "Engineer"
+        },
+        {
+          "name": "Co-Producer",
+          "creditCount": 3,
+          "icon": "icomoon-producer",
+          "id": "Co-Producer"
+        }
+      ],
+      "alumni": {
+        "items": [],
+        "totalCount": 0
+      },
+      "hasMoreActivities": true,
+      "profileAds": [],
+      "profileAdsTotalCount": 0
+    }
+  },
+  "error": null,
+  "state": {
+    "auth": {
+      "emailConfirmed": false,
+      "user": null,
+      "userLoginData": null,
+      "activeAccountId": null,
+      "accounts": null,
+      "forgotPasswordEmail": null,
+      "isLoadingLogin": false,
+      "profitwellUserEmail": null
+    },
+    "pagesCache": {},
+    "profileManagement": {
+      "createProfile": {
+        "name": "",
+        "image": "",
+        "country": "",
+        "city": "",
+        "about": ""
+      },
+      "createProfilePopupVisible": false,
+      "updateProfilePopupVisible": false
+    },
+    "subscription": {
+      "isPlanChangeModalOpen": false,
+      "isPlanChangeOrderModalOpen": false,
+      "planChangeOrderModalShowOnlyBusiness": false,
+      "isPlanCancelModalOpen": false,
+      "subscriptionChangeApprovalModalData": null,
+      "availableOffer": null,
+      "availableOfferLoading": false,
+      "availableOfferError": null,
+      "showAvailableOffer": false
+    },
+    "search": {
+      "isSearchLoading": false,
+      "searchResult": null
+    },
+    "roster": {
+      "rosterEntities": null,
+      "activeRosterMemberId": null,
+      "isShowRosterSidebar": false,
+      "rosterLoading": false
+    },
+    "roster-search": {
+      "isSearchFocused": false,
+      "isSearchLoading": false,
+      "searchResult": null,
+      "hasMoreResults": {
+        "top": true,
+        "tracks": true,
+        "albums": true,
+        "profiles": true,
+        "artists": true,
+        "organizations": true
+      },
+      "addingModalSearch": ""
+    },
+    "onboarding": {
+      "currentStep": 0,
+      "data": {
+        "fullName": "",
+        "type": null,
+        "country": null,
+        "dateOfBirth": null,
+        "role": null,
+        "profile": null,
+        "company": null,
+        "profiles": [],
+        "createCompanyBase": {
+          "logo": "",
+          "name": ""
+        },
+        "companyRole": null,
+        "createCompanyType": [],
+        "selectedPlan": null
+      }
+    },
+    "general": {
+      "isMobileMainMenuVisible": false,
+      "settingsActivePageItem": null,
+      "isShowCreditsManagementModalChange": false,
+      "isShowAnalyticsPlaqueOrderDetailsModal": false,
+      "isShowAddRosterModalManagement": false,
+      "isFirstTimeEmptyShowed": false,
+      "addRosterModalManagementType": "profile",
+      "addRosterModalManagementListId": null
+    },
+    "claim": {
+      "isShowClaimModal": false,
+      "claimingRosterId": null,
+      "claimingRosterItem": null,
+      "claimWorkspaceId": null,
+      "claimPopupOpenedOn": null,
+      "claimPopupDataToSend": null,
+      "isShowClaimChooseAccountView": false
+    },
+    "analytics": {
+      "grouping": {
+        "albumTitle": "",
+        "collaboratorsName": "",
+        "creditsTitle": "",
+        "data": [],
+        "group": "",
+        "rostersName": ""
+      },
+      "catalog": {
+        "data": []
+      }
+    },
+    "i18n": {
+      "routeParams": {}
+    }
+  },
+  "serverRendered": true,
+  "routePath": "/profile/e47af01c-e51d-442b-92c9-627495d08ee7",
+  "config": {
+    "_app": {
+      "basePath": "/",
+      "assetsPath": "/_nuxt/",
+      "cdnURL": null
+    }
+  },
+  "globalRefs": {},
+  "pinia": {
+    "feed": {
+      "followedProfiles": [],
+      "profileListLoading": false,
+      "loading": false,
+      "error": null,
+      "isCustomizeFeedModalVisible": false,
+      "isFollowsTableVisible": false
+    },
+    "audit-export": {
+      "isExporting": false,
+      "showExportModal": false,
+      "showNonProModal": false
+    },
+    "pagesCache": {
+      "profilesCache": {
+        "e47af01c-e51d-442b-92c9-627495d08ee7": {
+          "id": "e47af01c-e51d-442b-92c9-627495d08ee7",
+          "label": "artist",
+          "name": "Roman (Rosé) Hansen",
+          "city": "London",
+          "country": "United Kingdom",
+          "state": null,
+          "bio": null,
+          "website": "https://www.tiktok.com/@rosemixing",
+          "facebook": "",
+          "twitter": "",
+          "instagram": "https://www.instagram.com/mixedbyrose/",
+          "youtube": "",
+          "tiktok": null,
+          "spotifyId": null,
+          "avatarUrl": "https://assets-cdn-prod.muso.ai/images/avatar/e47af01c-e51d-442b-92c9-627495d08ee7_7a8e524d-d271-41b2-b185-f2dd2a548e1d.jpeg",
+          "commonCredits": "Engineer, Producer, Songwriter",
+          "albumCount": null,
+          "followsCount": 0,
+          "legalName": null,
+          "knownAsNames": [],
+          "careerStartYear": 2021,
+          "yearsActive": 5,
+          "trackPopularities": [
+            {
+              "tracksCount": 25,
+              "popularity": "0-29"
+            },
+            {
+              "tracksCount": 19,
+              "popularity": "30-49"
+            },
+            {
+              "tracksCount": 1,
+              "popularity": "50-69"
+            }
+          ],
+          "ipis": [],
+          "genres": [
+            {
+              "genre": "Hip-hop",
+              "tracksCount": 18
+            },
+            {
+              "genre": "Rock",
+              "tracksCount": 8
+            },
+            {
+              "genre": "Afro Rhythms",
+              "tracksCount": 4
+            },
+            {
+              "genre": "Ambient",
+              "tracksCount": 4
+            },
+            {
+              "genre": "Dance / Festival",
+              "tracksCount": 1
+            }
+          ],
+          "artists": [],
+          "members": [],
+          "memberOfs": [],
+          "membershipTypes": [
+            {
+              "type": "artist",
+              "count": 0
+            }
+          ],
+          "memberOfMembershipsTypes": [],
+          "socialAccounts": [],
+          "isVerified": false,
+          "isPro": false,
+          "collaboratorsCount": 82,
+          "creditCount": 45,
+          "popularity": 65,
+          "popularityCategory": "Established",
+          "rank": 3,
+          "type": "artist",
+          "subType": "artist",
+          "spotifyUrl": null,
+          "recentCreditsCount": 10,
+          "pendingCreditsCount": null,
+          "playlist": {
+            "spotifyId": "18w19RYmVMfUqqfhcQsFAg",
+            "title": "Roman (Rosé) Hansen - Discography",
+            "status": "completed",
+            "spotifyLink": "https://open.spotify.com/playlist/18w19RYmVMfUqqfhcQsFAg",
+            "avatarUrl": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84579abb117e32004c54b6c6cf"
+          },
+          "claim_status": "BLOCKED"
+        }
+      },
+      "rolesCache": {}
+    },
+    "audio": {
+      "currentTrack": null,
+      "tracks": {},
+      "userAutoplayIntent": false
+    }
+  }
+}
