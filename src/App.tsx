@@ -10,6 +10,7 @@ import { Instagram, Mail, Twitter } from "lucide-react";
 import { Navbar1 } from "./components/ui/navbar-1";
 import ReactPlayer from "react-player";
 import { InteractiveImageBentoGallery, ImageItem } from "./components/ui/gallery";
+import { Volume2, VolumeX } from "lucide-react";
 
 // --- HOOKS ---
 function useReducedMotion(): boolean {
@@ -48,7 +49,7 @@ const masterGallery = (() => {
   return gallery;
 })();
 
-const DynamicBackground = ({ trackIndex, bgIndex, masterIndex }: { trackIndex: number; bgIndex: number; masterIndex: number }) => {
+const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isMuted }: { trackIndex: number; bgIndex: number; masterIndex: number, isMuted: boolean }) => {
   const currentItem = masterGallery[masterIndex];
 
   return (
@@ -98,7 +99,7 @@ const DynamicBackground = ({ trackIndex, bgIndex, masterIndex }: { trackIndex: n
                   title="Mobile/Tablet BG"
                   width="3840"
                   height="2160"
-                  src={`https://www.youtube.com/embed/${currentItem.id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${currentItem.id}&start=${currentItem.start}&rel=0&vq=hd2160&hd=1&iv_load_policy=3&modestbranding=1`}
+                  src={`https://www.youtube.com/embed/${currentItem.id}?autoplay=1&mute=${isMuted ? 1 : 0}&controls=0&loop=1&playlist=${currentItem.id}&start=${currentItem.start}&rel=0&vq=hd2160&hd=1&iv_load_policy=3&modestbranding=1&playsinline=1`}
                   className="w-full h-full"
                   frameBorder="0"
                   allow="autoplay; encrypted-media; fullscreen"
@@ -120,7 +121,7 @@ const DynamicBackground = ({ trackIndex, bgIndex, masterIndex }: { trackIndex: n
 };
 
 // --- COMPONENTS ---
-function Layout({ children }: { children: React.ReactNode }) {
+function Layout({ children, isMuted, setIsMuted }: { children: React.ReactNode, isMuted: boolean, setIsMuted: React.Dispatch<React.SetStateAction<boolean>> }) {
   const location = useLocation();
   const isHome = location.pathname === '/';
 
@@ -138,6 +139,35 @@ function Layout({ children }: { children: React.ReactNode }) {
       {/* New Project Navbar Integration */}
       <Navbar1 />
 
+      {/* Global Mute Toggle */}
+      <button 
+        onClick={() => setIsMuted(!isMuted)}
+        className="fixed bottom-24 right-6 md:bottom-12 md:right-12 z-[60] flex items-center justify-center w-12 h-12 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full hover:bg-primary/20 hover:border-primary/40 transition-all duration-500 group"
+        aria-label={isMuted ? "Unmute Audio" : "Mute Audio"}
+      >
+        <AnimatePresence mode="wait">
+          {isMuted ? (
+            <motion.div
+              key="muted"
+              initial={{ scale: 0.5, opacity: 0, rotate: -45 }}
+              animate={{ scale: 1, opacity: 1, rotate: 0 }}
+              exit={{ scale: 1.5, opacity: 0, rotate: 45 }}
+            >
+              <VolumeX className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors" />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="unmuted"
+              initial={{ scale: 0.5, opacity: 0, rotate: 45 }}
+              animate={{ scale: 1, opacity: 1, rotate: 0 }}
+              exit={{ scale: 1.5, opacity: 0, rotate: -45 }}
+            >
+              <Volume2 className="w-5 h-5 text-primary animate-pulse" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </button>
+
       <main id="content" className="relative z-10 w-full overflow-x-hidden px-6 md:px-12 lg:px-16">
         {children}
       </main>
@@ -151,13 +181,13 @@ function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-const Home = () => {
+const Home = ({ isMuted, setIsMuted }: { isMuted: boolean, setIsMuted: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const reducedMotion = useReducedMotion();
   const [trackIndex, setTrackIndex] = useState(0);
   const [bgIndex, setBgIndex] = useState(0);
   const [masterIndex, setMasterIndex] = useState(0);
-  const [isMuted, setIsMuted] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const [hasSwiped, setHasSwiped] = useState(false);
 
   useEffect(() => {
     const checkScreen = () => setIsLargeScreen(window.innerWidth >= 1024);
@@ -184,9 +214,9 @@ const Home = () => {
     return () => clearInterval(timer);
   }, [isLargeScreen]);
 
-  // Update masterIndex automatically on mobile if no interaction
+  // Update masterIndex automatically on mobile ONLY if no interaction has occurred
   useEffect(() => {
-    if (isLargeScreen) return;
+    if (isLargeScreen || hasSwiped) return;
     const currentItem = masterGallery[masterIndex];
     // Photos stay longer (15s) if user hasn't swiped, Videos shorter (10s)
     const duration = currentItem.type === 'image' ? 15000 : 10000;
@@ -195,20 +225,23 @@ const Home = () => {
       setMasterIndex((prev) => (prev + 1) % masterGallery.length);
     }, duration); 
     return () => clearTimeout(timer);
-  }, [masterIndex, isLargeScreen]);
+  }, [masterIndex, isLargeScreen, hasSwiped]);
 
   const handleDragEnd = (event: any, info: any) => {
     const threshold = 30; // Reduced for faster response
-    if (info.offset.x > threshold) {
-      setMasterIndex((prev) => (prev - 1 + masterGallery.length) % masterGallery.length);
-    } else if (info.offset.x < -threshold) {
-      setMasterIndex((prev) => (prev + 1) % masterGallery.length);
+    if (Math.abs(info.offset.x) > threshold) {
+      setHasSwiped(true); // User has taken control, stop auto-cycle
+      if (info.offset.x > threshold) {
+        setMasterIndex((prev) => (prev - 1 + masterGallery.length) % masterGallery.length);
+      } else {
+        setMasterIndex((prev) => (prev + 1) % masterGallery.length);
+      }
     }
   };
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center px-6 md:px-12 pt-20 overflow-hidden">
-      <DynamicBackground trackIndex={trackIndex} bgIndex={bgIndex} masterIndex={masterIndex} />
+      <DynamicBackground trackIndex={trackIndex} bgIndex={bgIndex} masterIndex={masterIndex} isMuted={isMuted} />
       
       {/* Mobile Swipe Layer */}
       <motion.div 
@@ -795,12 +828,14 @@ const Contact = () => (
 
 // --- MAIN WRAPPER ---
 const App = () => {
+  const [isMuted, setIsMuted] = useState(true);
+
   return (
     <Router>
       <div className="relative min-h-screen">
-        <Layout>
+        <Layout isMuted={isMuted} setIsMuted={setIsMuted}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home isMuted={isMuted} setIsMuted={setIsMuted} />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
