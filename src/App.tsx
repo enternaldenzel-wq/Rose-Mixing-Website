@@ -177,7 +177,7 @@ function Layout({ children, isPlaying, setIsPlaying, isVideoSlide }: { children:
       {location.pathname === '/' && isVideoSlide && (
         <button 
           onClick={() => setIsPlaying(!isPlaying)}
-          className="fixed bottom-24 right-6 md:bottom-12 md:right-12 z-[60] flex items-center justify-center w-14 h-14 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full hover:bg-primary/20 hover:border-primary/40 transition-all duration-500 group"
+          className="fixed top-[78%] -translate-y-1/2 right-6 md:top-auto md:bottom-12 md:right-12 md:translate-y-0 z-[60] flex items-center justify-center w-14 h-14 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full hover:bg-primary/20 hover:border-primary/40 transition-all duration-500 group"
           aria-label={isPlaying ? "Pause" : "Play"}
         >
           <AnimatePresence mode="wait">
