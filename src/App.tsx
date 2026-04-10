@@ -212,6 +212,7 @@ const Home = ({ isMuted, setIsMuted }: { isMuted: boolean, setIsMuted: React.Dis
   const [masterIndex, setMasterIndex] = useState(0);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
   const [hasSwiped, setHasSwiped] = useState(false);
+  const [hasEntered, setHasEntered] = useState(false);
   const desktopIframeRef = useRef<HTMLIFrameElement>(null);
 
   // Helper to send commands to desktop iframe
@@ -290,6 +291,68 @@ const Home = ({ isMuted, setIsMuted }: { isMuted: boolean, setIsMuted: React.Dis
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center px-6 md:px-12 pt-20 overflow-hidden">
+
+      {/* Cinematic Intro Overlay — triggers iOS video autoplay via user gesture */}
+      <AnimatePresence>
+        {!hasEntered && (
+          <motion.div
+            key="intro-overlay"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+            onClick={() => {
+              setHasEntered(true);
+              // Use the tap gesture to force-play all iframes
+              setIsMuted(prev => { 
+                // Toggle and toggle back to trigger the useEffect that sends playVideo
+                setTimeout(() => setIsMuted(true), 50);
+                return true;
+              });
+            }}
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black cursor-pointer select-none"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
+              className="flex flex-col items-center gap-6"
+            >
+              <span className="font-accent text-[clamp(2.5rem,8vw,6rem)] leading-[0.85] text-primary">
+                ROSE
+              </span>
+              <span className="font-accent text-[clamp(2.5rem,8vw,6rem)] leading-[0.85] text-white -mt-4">
+                MIXING
+              </span>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2, duration: 0.8 }}
+              className="mt-12 flex flex-col items-center gap-3"
+            >
+              <div className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center animate-pulse">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 5.14v14l11-7-11-7z" fill="white" />
+                </svg>
+              </div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/40">
+                Tap to Enter
+              </span>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 2, duration: 1 }}
+              className="absolute bottom-12 font-mono text-[8px] uppercase tracking-[0.5em] text-white/15"
+            >
+              Best experienced with sound
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <DynamicBackground trackIndex={trackIndex} bgIndex={bgIndex} masterIndex={masterIndex} isMuted={isMuted} isLargeScreen={isLargeScreen} />
       
       {/* Mobile Swipe Layer */}
