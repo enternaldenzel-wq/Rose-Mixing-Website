@@ -375,7 +375,7 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
       />
 
       {/* Centered Role Card - Mobile & Tablet Only */}
-      <div className="lg:hidden absolute top-[72%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-[60] w-[80%] max-w-[320px] pointer-events-none">
+      <div className="lg:hidden absolute top-[75%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-[60] w-[80%] max-w-[320px] pointer-events-none">
         <AnimatePresence mode="wait">
           <motion.div
             key={masterIndex}
