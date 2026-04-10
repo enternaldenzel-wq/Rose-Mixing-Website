@@ -301,23 +301,8 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
     return () => window.removeEventListener('resize', checkScreen);
   }, []);
 
-  // Independent timer for Project Cycle (Video Player - PC)
-  useEffect(() => {
-    if (!isLargeScreen) return;
-    const timer = setTimeout(() => {
-      setTrackIndex((prev) => (prev + 1) % studioTracks.length);
-    }, studioTracks[trackIndex].duration);
-    return () => clearTimeout(timer);
-  }, [trackIndex, isLargeScreen]);
+  // Auto-cycling for PC removed: full manual control enabled
 
-  // Independent timer for Background Imagery Cycle (PC)
-  useEffect(() => {
-    if (!isLargeScreen) return;
-    const timer = setInterval(() => {
-      setBgIndex((prev) => (prev + 1) % landingImages.length);
-    }, 10000); 
-    return () => clearInterval(timer);
-  }, [isLargeScreen]);
 
   // Sync isVideoSlide state whenever masterIndex changes (for mobile play button visibility)
   useEffect(() => {
