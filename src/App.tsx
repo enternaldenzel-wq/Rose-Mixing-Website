@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react
 import { motion, AnimatePresence } from "motion/react";
 import { Instagram, Mail, Twitter } from "lucide-react";
 import { Navbar1 } from "./components/ui/navbar-1";
-import ReactPlayer from "react-player";
+
 import { InteractiveImageBentoGallery, ImageItem } from "./components/ui/gallery";
 import { Volume2, VolumeX } from "lucide-react";
 
@@ -51,6 +51,30 @@ const masterGallery = (() => {
 
 const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isMuted }: { trackIndex: number; bgIndex: number; masterIndex: number, isMuted: boolean }) => {
   const currentItem = masterGallery[masterIndex];
+  const mobileIframeRef = useRef<HTMLIFrameElement>(null);
+
+  // Send mute/unmute to the mobile iframe via YouTube postMessage API
+  const sendMuteCommand = (iframe: HTMLIFrameElement | null, muted: boolean) => {
+    if (iframe?.contentWindow) {
+      const command = muted ? 'mute' : 'unMute';
+      iframe.contentWindow.postMessage(
+        JSON.stringify({ event: 'command', func: command, args: [] }),
+        '*'
+      );
+    }
+  };
+
+  // When isMuted changes, send command to existing iframe
+  useEffect(() => {
+    sendMuteCommand(mobileIframeRef.current, isMuted);
+  }, [isMuted]);
+
+  // When a NEW iframe loads (video changed), wait for YouTube API to init then apply mute state
+  const handleMobileIframeLoad = () => {
+    setTimeout(() => {
+      sendMuteCommand(mobileIframeRef.current, isMuted);
+    }, 1000);
+  };
 
   return (
     <div className="fixed inset-0 z-0 opacity-100 pointer-events-none overflow-hidden bg-black" aria-hidden="true">
@@ -86,23 +110,16 @@ const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isMuted }: { trac
           {/* Mobile & Tablet: Swipeable Master Gallery (Videos + Images) */}
           <div className="lg:hidden absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center bg-black">
             {currentItem.type === 'video' ? (
-              <div 
-                className="flex-shrink-0 pointer-events-none origin-center"
-                style={{
-                   width: '3840px',
-                   height: '2160px',
-                   transform: `scale(${Math.max(window.innerWidth / 3840, window.innerHeight / 2160) * 1.5})`
-                }}
-              >
+              <div className="absolute inset-0 w-full h-full">
                 <iframe
+                  ref={mobileIframeRef}
                   key={currentItem.id}
                   title="Mobile/Tablet BG"
-                  width="3840"
-                  height="2160"
-                  src={`https://www.youtube.com/embed/${currentItem.id}?autoplay=1&mute=${isMuted ? 1 : 0}&controls=0&loop=1&playlist=${currentItem.id}&start=${currentItem.start}&rel=0&vq=hd2160&hd=1&iv_load_policy=3&modestbranding=1&playsinline=1`}
-                  className="w-full h-full"
-                  frameBorder="0"
-                  allow="autoplay; encrypted-media; fullscreen"
+                  src={`https://www.youtube.com/embed/${currentItem.id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${currentItem.id}&start=${currentItem.start}&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=1&origin=${window.location.origin}`}
+                  className="cinematic-cover"
+                  style={{ border: 'none' }}
+                  allow="autoplay; encrypted-media"
+                  onLoad={handleMobileIframeLoad}
                 />
               </div>
             ) : (
@@ -188,6 +205,31 @@ const Home = ({ isMuted, setIsMuted }: { isMuted: boolean, setIsMuted: React.Dis
   const [masterIndex, setMasterIndex] = useState(0);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
   const [hasSwiped, setHasSwiped] = useState(false);
+  const desktopIframeRef = useRef<HTMLIFrameElement>(null);
+
+  // Send mute/unmute to the desktop iframe via YouTube postMessage API
+  useEffect(() => {
+    if (desktopIframeRef.current?.contentWindow) {
+      const command = isMuted ? 'mute' : 'unMute';
+      desktopIframeRef.current.contentWindow.postMessage(
+        JSON.stringify({ event: 'command', func: command, args: [] }),
+        '*'
+      );
+    }
+  }, [isMuted]);
+
+  // When a new desktop iframe loads, wait for YouTube API then apply mute state
+  const handleDesktopIframeLoad = () => {
+    setTimeout(() => {
+      if (desktopIframeRef.current?.contentWindow) {
+        const command = isMuted ? 'mute' : 'unMute';
+        desktopIframeRef.current.contentWindow.postMessage(
+          JSON.stringify({ event: 'command', func: command, args: [] }),
+          '*'
+        );
+      }
+    }, 1000);
+  };
 
   useEffect(() => {
     const checkScreen = () => setIsLargeScreen(window.innerWidth >= 1024);
@@ -304,10 +346,11 @@ const Home = ({ isMuted, setIsMuted }: { isMuted: boolean, setIsMuted: React.Dis
       </h1>
 
       {/* Credits Highlights & Mini-Player - Desktop Only (LG+) */}
+      {isLargeScreen && (
       <div className="hidden lg:flex absolute bottom-24 left-12 z-30 flex-col items-start gap-8">
         <AnimatePresence mode="wait">
           <motion.div
-            key={trackIndex + (isMuted ? "-muted" : "-unmuted")}
+            key={trackIndex}
             initial={{ opacity: 0, x: -50, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: -20, scale: 0.95 }}
@@ -317,13 +360,14 @@ const Home = ({ isMuted, setIsMuted }: { isMuted: boolean, setIsMuted: React.Dis
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
             
             <iframe
-              key={studioTracks[trackIndex].id + isMuted}
+              ref={desktopIframeRef}
+              key={studioTracks[trackIndex].id}
               title="Mini Preview"
-              src={`https://www.youtube.com/embed/${studioTracks[trackIndex].id}?autoplay=1&mute=${isMuted ? 1 : 0}&controls=0&loop=1&playlist=${studioTracks[trackIndex].id}&start=${studioTracks[trackIndex].start}&rel=0&showinfo=0&modestbranding=1&vq=hd720`}
+              src={`https://www.youtube.com/embed/${studioTracks[trackIndex].id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${studioTracks[trackIndex].id}&start=${studioTracks[trackIndex].start}&rel=0&showinfo=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=${window.location.origin}`}
               className="w-full h-full rounded-lg"
-              frameBorder="0"
+              style={{ border: 'none' }}
               allow="autoplay; encrypted-media"
-              allowFullScreen
+              onLoad={handleDesktopIframeLoad}
             />
 
             <div className="absolute top-4 right-4 z-20">
@@ -368,6 +412,7 @@ const Home = ({ isMuted, setIsMuted }: { isMuted: boolean, setIsMuted: React.Dis
           ))}
         </motion.ul>
       </div>
+      )}
 
       <div className="absolute bottom-8 left-6 md:left-12 right-6 md:right-12 z-10 flex flex-col items-start lg:flex-row lg:items-end lg:justify-between gap-6 pointer-events-none">
         <motion.div

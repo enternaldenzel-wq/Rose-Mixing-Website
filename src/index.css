@@ -65,6 +65,18 @@
   .hover-trigger .hover-reveal {
     @apply opacity-0 group-hover:opacity-100 transition-opacity duration-500;
   }
+
+  .cinematic-cover {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 56.25vw; /* 16:9 aspect */
+    min-height: 100vh;
+    min-width: 177.77vh; /* Reverse 16:9 aspect */
+    pointer-events: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
