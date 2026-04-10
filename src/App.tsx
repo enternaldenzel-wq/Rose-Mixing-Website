@@ -28,7 +28,7 @@ function useReducedMotion(): boolean {
 const studioTracks = [
   { id: 'CBGuX7yEh2Q', artist: 'AJ Tracey', title: 'Ibiza', label: '01. ENGINEER', start: 45, duration: 25000 },
   { id: 'hCCZawVBx38', artist: 'Rheez.', title: '100£', label: '02. PRODUCER / MIX / MASTER', start: 30, duration: 25000 },
-  { id: 'PJVAMOfEU3I', artist: 'Danny Ray', title: 'Turn Up The Radio', label: '03. PRODUCER / CO-PRODUCER', start: 40, duration: 25000 },
+  { id: 'RkYPJN1cM1o', artist: 'Rheez.', title: 'Plenty', label: '03. MASTERING / MIX / ENGINEER', start: 0, duration: 25000 },
 ];
 
 const landingImages = [
