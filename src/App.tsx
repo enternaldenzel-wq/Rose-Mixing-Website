@@ -10,7 +10,7 @@ import { Instagram, Mail, Twitter } from "lucide-react";
 import { Navbar1 } from "./components/ui/navbar-1";
 
 import { InteractiveImageBentoGallery, ImageItem } from "./components/ui/gallery";
-import { Volume2, VolumeX } from "lucide-react";
+import { Play, Pause } from "lucide-react";
 
 // --- HOOKS ---
 function useReducedMotion(): boolean {
@@ -49,7 +49,7 @@ const masterGallery = (() => {
   return gallery;
 })();
 
-const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isMuted, isLargeScreen }: { trackIndex: number; bgIndex: number; masterIndex: number, isMuted: boolean, isLargeScreen: boolean }) => {
+const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isPlaying, isLargeScreen }: { trackIndex: number; bgIndex: number; masterIndex: number, isPlaying: boolean, isLargeScreen: boolean }) => {
   const currentItem = masterGallery[masterIndex];
   const mobileIframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -63,19 +63,29 @@ const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isMuted, isLargeS
     }
   };
 
-  // When isMuted changes, send mute/unmute + always ensure playing
+  // When isPlaying changes, play/pause + mute/unmute
   useEffect(() => {
     const iframe = mobileIframeRef.current;
-    sendCommand(iframe, isMuted ? 'mute' : 'unMute');
-    sendCommand(iframe, 'playVideo');
-  }, [isMuted]);
+    if (isPlaying) {
+      sendCommand(iframe, 'playVideo');
+      sendCommand(iframe, 'unMute');
+    } else {
+      sendCommand(iframe, 'pauseVideo');
+      sendCommand(iframe, 'mute');
+    }
+  }, [isPlaying]);
 
-  // When a NEW iframe loads, wait for YouTube API to init then force play + apply mute state
+  // When a NEW iframe loads, wait for YouTube API to init then apply current state
   const handleMobileIframeLoad = () => {
     setTimeout(() => {
       const iframe = mobileIframeRef.current;
-      sendCommand(iframe, 'playVideo');
-      sendCommand(iframe, isMuted ? 'mute' : 'unMute');
+      if (isPlaying) {
+        sendCommand(iframe, 'playVideo');
+        sendCommand(iframe, 'unMute');
+      } else {
+        sendCommand(iframe, 'pauseVideo');
+        sendCommand(iframe, 'mute');
+      }
     }, 1500);
   };
 
@@ -145,7 +155,7 @@ const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isMuted, isLargeS
 };
 
 // --- COMPONENTS ---
-function Layout({ children, isMuted, setIsMuted }: { children: React.ReactNode, isMuted: boolean, setIsMuted: React.Dispatch<React.SetStateAction<boolean>> }) {
+function Layout({ children, isPlaying, setIsPlaying }: { children: React.ReactNode, isPlaying: boolean, setIsPlaying: React.Dispatch<React.SetStateAction<boolean>> }) {
   const location = useLocation();
   const isHome = location.pathname === '/';
 
@@ -163,33 +173,40 @@ function Layout({ children, isMuted, setIsMuted }: { children: React.ReactNode, 
       {/* New Project Navbar Integration */}
       <Navbar1 />
 
-      {/* Global Mute Toggle */}
+      {/* Global Play/Pause Toggle */}
       <button 
-        onClick={() => setIsMuted(!isMuted)}
-        className="fixed bottom-24 right-6 md:bottom-12 md:right-12 z-[60] flex items-center justify-center w-12 h-12 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full hover:bg-primary/20 hover:border-primary/40 transition-all duration-500 group"
-        aria-label={isMuted ? "Unmute Audio" : "Mute Audio"}
+        onClick={() => setIsPlaying(!isPlaying)}
+        className="fixed bottom-24 right-6 md:bottom-12 md:right-12 z-[60] flex items-center justify-center w-14 h-14 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full hover:bg-primary/20 hover:border-primary/40 transition-all duration-500 group"
+        aria-label={isPlaying ? "Pause" : "Play"}
       >
         <AnimatePresence mode="wait">
-          {isMuted ? (
+          {!isPlaying ? (
             <motion.div
-              key="muted"
-              initial={{ scale: 0.5, opacity: 0, rotate: -45 }}
-              animate={{ scale: 1, opacity: 1, rotate: 0 }}
-              exit={{ scale: 1.5, opacity: 0, rotate: 45 }}
+              key="play"
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 1.5, opacity: 0 }}
+              className="flex items-center justify-center"
             >
-              <VolumeX className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors" />
+              <Play className="w-5 h-5 text-primary fill-primary ml-0.5" />
             </motion.div>
           ) : (
             <motion.div
-              key="unmuted"
-              initial={{ scale: 0.5, opacity: 0, rotate: 45 }}
-              animate={{ scale: 1, opacity: 1, rotate: 0 }}
-              exit={{ scale: 1.5, opacity: 0, rotate: -45 }}
+              key="pause"
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 1.5, opacity: 0 }}
+              className="flex items-center justify-center"
             >
-              <Volume2 className="w-5 h-5 text-primary animate-pulse" />
+              <Pause className="w-5 h-5 text-primary fill-primary" />
             </motion.div>
           )}
         </AnimatePresence>
+        {!isPlaying && (
+          <span className="absolute -top-8 right-0 font-mono text-[8px] uppercase tracking-widest text-white/40 animate-pulse whitespace-nowrap">
+            Tap to play
+          </span>
+        )}
       </button>
 
       <main id="content" className="relative z-10 w-full overflow-x-hidden px-6 md:px-12 lg:px-16">
@@ -205,14 +222,13 @@ function Layout({ children, isMuted, setIsMuted }: { children: React.ReactNode, 
   );
 }
 
-const Home = ({ isMuted, setIsMuted }: { isMuted: boolean, setIsMuted: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const Home = ({ isPlaying, setIsPlaying }: { isPlaying: boolean, setIsPlaying: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const reducedMotion = useReducedMotion();
   const [trackIndex, setTrackIndex] = useState(0);
   const [bgIndex, setBgIndex] = useState(0);
   const [masterIndex, setMasterIndex] = useState(0);
   const [isLargeScreen, setIsLargeScreen] = useState(false);
   const [hasSwiped, setHasSwiped] = useState(false);
-  const [hasEntered, setHasEntered] = useState(false);
   const desktopIframeRef = useRef<HTMLIFrameElement>(null);
 
   // Helper to send commands to desktop iframe
@@ -225,17 +241,27 @@ const Home = ({ isMuted, setIsMuted }: { isMuted: boolean, setIsMuted: React.Dis
     }
   };
 
-  // When isMuted changes, send mute/unmute + ensure playing
+  // When isPlaying changes, play/pause + mute/unmute
   useEffect(() => {
-    sendDesktopCommand(isMuted ? 'mute' : 'unMute');
-    sendDesktopCommand('playVideo');
-  }, [isMuted]);
+    if (isPlaying) {
+      sendDesktopCommand('playVideo');
+      sendDesktopCommand('unMute');
+    } else {
+      sendDesktopCommand('pauseVideo');
+      sendDesktopCommand('mute');
+    }
+  }, [isPlaying]);
 
-  // When a new desktop iframe loads, wait for YouTube API then force play + apply mute state
+  // When a new desktop iframe loads, apply current play state
   const handleDesktopIframeLoad = () => {
     setTimeout(() => {
-      sendDesktopCommand('playVideo');
-      sendDesktopCommand(isMuted ? 'mute' : 'unMute');
+      if (isPlaying) {
+        sendDesktopCommand('playVideo');
+        sendDesktopCommand('unMute');
+      } else {
+        sendDesktopCommand('pauseVideo');
+        sendDesktopCommand('mute');
+      }
     }, 1500);
   };
 
@@ -291,69 +317,7 @@ const Home = ({ isMuted, setIsMuted }: { isMuted: boolean, setIsMuted: React.Dis
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center px-6 md:px-12 pt-20 overflow-hidden">
-
-      {/* Cinematic Intro Overlay — triggers iOS video autoplay via user gesture */}
-      <AnimatePresence>
-        {!hasEntered && (
-          <motion.div
-            key="intro-overlay"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.2, ease: "easeInOut" }}
-            onClick={() => {
-              setHasEntered(true);
-              // Use the tap gesture to force-play all iframes
-              setIsMuted(prev => { 
-                // Toggle and toggle back to trigger the useEffect that sends playVideo
-                setTimeout(() => setIsMuted(true), 50);
-                return true;
-              });
-            }}
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black cursor-pointer select-none"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.5, ease: "easeOut" }}
-              className="flex flex-col items-center gap-6"
-            >
-              <span className="font-accent text-[clamp(2.5rem,8vw,6rem)] leading-[0.85] text-primary">
-                ROSE
-              </span>
-              <span className="font-accent text-[clamp(2.5rem,8vw,6rem)] leading-[0.85] text-white -mt-4">
-                MIXING
-              </span>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.8 }}
-              className="mt-12 flex flex-col items-center gap-3"
-            >
-              <div className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center animate-pulse">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8 5.14v14l11-7-11-7z" fill="white" />
-                </svg>
-              </div>
-              <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-white/40">
-                Tap to Enter
-              </span>
-            </motion.div>
-
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 2, duration: 1 }}
-              className="absolute bottom-12 font-mono text-[8px] uppercase tracking-[0.5em] text-white/15"
-            >
-              Best experienced with sound
-            </motion.p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <DynamicBackground trackIndex={trackIndex} bgIndex={bgIndex} masterIndex={masterIndex} isMuted={isMuted} isLargeScreen={isLargeScreen} />
+      <DynamicBackground trackIndex={trackIndex} bgIndex={bgIndex} masterIndex={masterIndex} isPlaying={isPlaying} isLargeScreen={isLargeScreen} />
       
       {/* Mobile Swipe Layer */}
       <motion.div 
@@ -423,7 +387,7 @@ const Home = ({ isMuted, setIsMuted }: { isMuted: boolean, setIsMuted: React.Dis
             initial={{ opacity: 0, x: -50, scale: 0.9 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            onClick={() => setIsMuted(!isMuted)}
+            onClick={() => setIsPlaying(!isPlaying)}
             className="group relative aspect-video w-[450px] overflow-hidden rounded-xl border border-white/20 bg-black shadow-2xl p-1 cursor-pointer"
           >
             <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
@@ -442,7 +406,7 @@ const Home = ({ isMuted, setIsMuted }: { isMuted: boolean, setIsMuted: React.Dis
             <div className="absolute top-4 right-4 z-20">
                <div className="px-3 py-1 bg-primary/20 backdrop-blur-md border border-primary/40 rounded-full">
                   <span className="font-mono text-[10px] text-white tracking-widest animate-pulse uppercase">
-                    {isMuted ? 'MUTED PREVIEW' : 'LIVE AUDIO'}
+                    {isPlaying ? 'NOW PLAYING' : 'PAUSED'}
                   </span>
                </div>
             </div>
@@ -454,7 +418,7 @@ const Home = ({ isMuted, setIsMuted }: { isMuted: boolean, setIsMuted: React.Dis
 
             <div className="absolute inset-0 z-30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-[2px]">
                <div className="px-6 py-2 bg-white text-black font-box text-xs uppercase tracking-widest rounded-full shadow-glow-primary">
-                 {isMuted ? 'Tap to Unmute' : 'Tap to Mute'}
+                 {isPlaying ? 'Click to Pause' : 'Click to Play'}
                </div>
             </div>
           </motion.div>
@@ -470,7 +434,7 @@ const Home = ({ isMuted, setIsMuted }: { isMuted: boolean, setIsMuted: React.Dis
               key={track.id}
               onClick={() => {
                 setTrackIndex(i);
-                setIsMuted(false);
+                setIsPlaying(true);
               }}
               className={`cursor-pointer group transition-all duration-700 px-8 py-5 rounded-2xl backdrop-blur-md border border-white/5 ${trackIndex === i ? 'bg-black/60 scale-105 border-primary/30 shadow-[0_0_30px_rgba(157,0,255,0.1)]' : 'bg-black/20 opacity-40 scale-100'}`}
             >
@@ -941,14 +905,14 @@ const Contact = () => (
 
 // --- MAIN WRAPPER ---
 const App = () => {
-  const [isMuted, setIsMuted] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
     <Router>
       <div className="relative min-h-screen">
-        <Layout isMuted={isMuted} setIsMuted={setIsMuted}>
+        <Layout isPlaying={isPlaying} setIsPlaying={setIsPlaying}>
           <Routes>
-            <Route path="/" element={<Home isMuted={isMuted} setIsMuted={setIsMuted} />} />
+            <Route path="/" element={<Home isPlaying={isPlaying} setIsPlaying={setIsPlaying} />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
