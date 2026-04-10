@@ -678,7 +678,7 @@ const TextReveal = ({ text, className, delay = 0, style }: { text: string, class
 };
 
 const RoleCycle = () => {
-  const roles = ["CREATIVE", "ENGINEER", "MAN."];
+  const roles = ["CREATIVE", "ENGINEER", "PRODUCER", "MAN."];
   const [index, setIndex] = useState(0);
   const [hasLanded, setHasLanded] = useState(false);
 
