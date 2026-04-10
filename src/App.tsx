@@ -158,24 +158,6 @@ const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isPlaying, isLarg
 function Layout({ children, isPlaying, setIsPlaying, isVideoSlide }: { children: React.ReactNode, isPlaying: boolean, setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>, isVideoSlide: boolean }) {
   const location = useLocation();
   const isHome = location.pathname === '/';
-
-  const handleToggle = () => {
-    const nextState = !isPlaying;
-    setIsPlaying(nextState);
-    
-    // Direct broadcast of commands during the user-gesture to bypass mobile restrictions
-    const iframes = document.querySelectorAll('iframe');
-    const playFunc = nextState ? 'playVideo' : 'pauseVideo';
-    const muteFunc = nextState ? 'unMute' : 'mute';
-    
-    iframes.forEach(iframe => {
-      if (iframe.contentWindow) {
-        iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: playFunc, args: [] }), '*');
-        iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: muteFunc, args: [] }), '*');
-      }
-    });
-  };
-
   return (
     <div className="relative min-h-screen bg-bg text-text font-sans selection:bg-primary selection:text-white antialiased">
       <a href="#content" className="skip-link">Skip to content</a>
@@ -189,44 +171,6 @@ function Layout({ children, isPlaying, setIsPlaying, isVideoSlide }: { children:
 
       {/* New Project Navbar Integration */}
       <Navbar1 />
-
-      {/* Global Play/Pause Toggle */}
-      {location.pathname === '/' && isVideoSlide && (
-        <button 
-          onClick={handleToggle}
-          className="fixed top-[78%] -translate-y-1/2 right-10 md:top-auto md:bottom-12 md:right-12 md:translate-y-0 z-[60] flex items-center justify-center w-14 h-14 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full hover:bg-primary/20 hover:border-primary/40 transition-all duration-500 group"
-          aria-label={isPlaying ? "Pause" : "Play"}
-        >
-          <AnimatePresence mode="wait">
-            {!isPlaying ? (
-              <motion.div
-                key="play"
-                initial={{ scale: 0.5, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 1.5, opacity: 0 }}
-                className="flex items-center justify-center"
-              >
-                <Play className="w-5 h-5 text-primary fill-primary ml-0.5" />
-              </motion.div>
-            ) : (
-              <motion.div
-                key="pause"
-                initial={{ scale: 0.5, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 1.5, opacity: 0 }}
-                className="flex items-center justify-center"
-              >
-                <Pause className="w-5 h-5 text-primary fill-primary" />
-              </motion.div>
-            )}
-          </AnimatePresence>
-          {!isPlaying && (
-            <span className="absolute -top-8 right-0 font-mono text-[8px] uppercase tracking-widest text-white/40 animate-pulse whitespace-nowrap">
-              Tap to play
-            </span>
-          )}
-        </button>
-      )}
 
       <main id="content" className="relative z-10 w-full overflow-x-hidden px-6 md:px-12 lg:px-16">
         {children}
@@ -316,6 +260,23 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
     return () => setIsVideoSlide(false); // Reset when leaving Home
   }, [masterIndex, setIsVideoSlide]);
 
+  const handleToggle = () => {
+    const nextState = !isPlaying;
+    setIsPlaying(nextState);
+    
+    // Direct broadcast of commands during the user-gesture
+    const iframes = document.querySelectorAll('iframe');
+    const playFunc = nextState ? 'playVideo' : 'pauseVideo';
+    const muteFunc = nextState ? 'unMute' : 'mute';
+    
+    iframes.forEach(iframe => {
+      if (iframe.contentWindow) {
+        iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: playFunc, args: [] }), '*');
+        iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: muteFunc, args: [] }), '*');
+      }
+    });
+  };
+
   const handleDragEnd = (event: any, info: any) => {
     const threshold = 30;
     if (Math.abs(info.offset.x) > threshold) {
@@ -372,6 +333,67 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
           </motion.div>
         </AnimatePresence>
       </div>
+
+      {/* Aligned Play Button - Mobile Only */}
+      {!isLargeScreen && (
+        <div className="lg:hidden absolute top-[78%] -translate-y-1/2 right-10 z-[60]">
+           <button 
+             onClick={handleToggle}
+             className="flex items-center justify-center w-14 h-14 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full hover:bg-primary/20 hover:border-primary/40 transition-all duration-500 group pointer-events-auto"
+             aria-label={isPlaying ? "Pause" : "Play"}
+           >
+            <AnimatePresence mode="wait">
+              {!isPlaying ? (
+                <motion.div
+                  key="play"
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 1.5, opacity: 0 }}
+                  className="flex items-center justify-center"
+                >
+                  <Play className="w-5 h-5 text-primary fill-primary ml-0.5" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="pause"
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 1.5, opacity: 0 }}
+                  className="flex items-center justify-center"
+                >
+                  <Pause className="w-5 h-5 text-primary fill-primary" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+            {!isPlaying && (
+              <span className="absolute -top-8 right-0 font-mono text-[8px] uppercase tracking-widest text-white/40 animate-pulse whitespace-nowrap">
+                Tap to play
+              </span>
+            )}
+           </button>
+        </div>
+      )}
+
+      {/* Aligned Play Button - Desktop Position */}
+      {isLargeScreen && (
+        <button 
+          onClick={handleToggle}
+          className="fixed bottom-12 right-12 z-[60] flex items-center justify-center w-14 h-14 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full hover:bg-primary/20 hover:border-primary/40 transition-all duration-500 group"
+          aria-label={isPlaying ? "Pause" : "Play"}
+        >
+          <AnimatePresence mode="wait">
+            {!isPlaying ? (
+              <motion.div key="play-pc" initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 1.5, opacity: 0 }}>
+                <Play className="w-5 h-5 text-primary fill-primary ml-0.5" />
+              </motion.div>
+            ) : (
+              <motion.div key="pause-pc" initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 1.5, opacity: 0 }}>
+                <Pause className="w-5 h-5 text-primary fill-primary" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </button>
+      )}
 
       <h1 className="relative z-20 flex flex-col items-center text-center mt-[-10vh] md:mt-0 pointer-events-none">
         <motion.span 
