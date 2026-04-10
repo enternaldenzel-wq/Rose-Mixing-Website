@@ -131,7 +131,7 @@ const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isPlaying, isLarg
                     ref={mobileIframeRef}
                     key={currentItem.id}
                     title="Mobile/Tablet BG"
-                    src={`https://www.youtube.com/embed/${currentItem.id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${currentItem.id}&start=${currentItem.start}&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=1&origin=${window.location.origin}`}
+                    src={`https://www.youtube.com/embed/${currentItem.id}?mute=1&controls=0&loop=1&playlist=${currentItem.id}&start=${currentItem.start}&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=1&origin=${window.location.origin}`}
                     className="cinematic-cover"
                     style={{ border: 'none' }}
                     allow="autoplay; encrypted-media"
@@ -159,6 +159,23 @@ function Layout({ children, isPlaying, setIsPlaying, isVideoSlide }: { children:
   const location = useLocation();
   const isHome = location.pathname === '/';
 
+  const handleToggle = () => {
+    const nextState = !isPlaying;
+    setIsPlaying(nextState);
+    
+    // Direct broadcast of commands during the user-gesture to bypass mobile restrictions
+    const iframes = document.querySelectorAll('iframe');
+    const playFunc = nextState ? 'playVideo' : 'pauseVideo';
+    const muteFunc = nextState ? 'unMute' : 'mute';
+    
+    iframes.forEach(iframe => {
+      if (iframe.contentWindow) {
+        iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: playFunc, args: [] }), '*');
+        iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: muteFunc, args: [] }), '*');
+      }
+    });
+  };
+
   return (
     <div className="relative min-h-screen bg-bg text-text font-sans selection:bg-primary selection:text-white antialiased">
       <a href="#content" className="skip-link">Skip to content</a>
@@ -176,7 +193,7 @@ function Layout({ children, isPlaying, setIsPlaying, isVideoSlide }: { children:
       {/* Global Play/Pause Toggle */}
       {location.pathname === '/' && isVideoSlide && (
         <button 
-          onClick={() => setIsPlaying(!isPlaying)}
+          onClick={handleToggle}
           className="fixed top-[78%] -translate-y-1/2 right-10 md:top-auto md:bottom-12 md:right-12 md:translate-y-0 z-[60] flex items-center justify-center w-14 h-14 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full hover:bg-primary/20 hover:border-primary/40 transition-all duration-500 group"
           aria-label={isPlaying ? "Pause" : "Play"}
         >
@@ -392,7 +409,7 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
               ref={desktopIframeRef}
               key={studioTracks[trackIndex].id}
               title="Mini Preview"
-              src={`https://www.youtube.com/embed/${studioTracks[trackIndex].id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${studioTracks[trackIndex].id}&start=${studioTracks[trackIndex].start}&rel=0&showinfo=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=${window.location.origin}`}
+              src={`https://www.youtube.com/embed/${studioTracks[trackIndex].id}?mute=1&controls=0&loop=1&playlist=${studioTracks[trackIndex].id}&start=${studioTracks[trackIndex].start}&rel=0&showinfo=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=${window.location.origin}`}
               className="w-full h-full rounded-lg"
               style={{ border: 'none' }}
               allow="autoplay; encrypted-media"
