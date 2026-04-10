@@ -174,40 +174,42 @@ function Layout({ children, isPlaying, setIsPlaying }: { children: React.ReactNo
       <Navbar1 />
 
       {/* Global Play/Pause Toggle */}
-      <button 
-        onClick={() => setIsPlaying(!isPlaying)}
-        className="fixed bottom-24 right-6 md:bottom-12 md:right-12 z-[60] flex items-center justify-center w-14 h-14 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full hover:bg-primary/20 hover:border-primary/40 transition-all duration-500 group"
-        aria-label={isPlaying ? "Pause" : "Play"}
-      >
-        <AnimatePresence mode="wait">
-          {!isPlaying ? (
-            <motion.div
-              key="play"
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 1.5, opacity: 0 }}
-              className="flex items-center justify-center"
-            >
-              <Play className="w-5 h-5 text-primary fill-primary ml-0.5" />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="pause"
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 1.5, opacity: 0 }}
-              className="flex items-center justify-center"
-            >
-              <Pause className="w-5 h-5 text-primary fill-primary" />
-            </motion.div>
+      {location.pathname !== '/contact' && (
+        <button 
+          onClick={() => setIsPlaying(!isPlaying)}
+          className="fixed bottom-24 right-6 md:bottom-12 md:right-12 z-[60] flex items-center justify-center w-14 h-14 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full hover:bg-primary/20 hover:border-primary/40 transition-all duration-500 group"
+          aria-label={isPlaying ? "Pause" : "Play"}
+        >
+          <AnimatePresence mode="wait">
+            {!isPlaying ? (
+              <motion.div
+                key="play"
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 1.5, opacity: 0 }}
+                className="flex items-center justify-center"
+              >
+                <Play className="w-5 h-5 text-primary fill-primary ml-0.5" />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="pause"
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 1.5, opacity: 0 }}
+                className="flex items-center justify-center"
+              >
+                <Pause className="w-5 h-5 text-primary fill-primary" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+          {!isPlaying && (
+            <span className="absolute -top-8 right-0 font-mono text-[8px] uppercase tracking-widest text-white/40 animate-pulse whitespace-nowrap">
+              Tap to play
+            </span>
           )}
-        </AnimatePresence>
-        {!isPlaying && (
-          <span className="absolute -top-8 right-0 font-mono text-[8px] uppercase tracking-widest text-white/40 animate-pulse whitespace-nowrap">
-            Tap to play
-          </span>
-        )}
-      </button>
+        </button>
+      )}
 
       <main id="content" className="relative z-10 w-full overflow-x-hidden px-6 md:px-12 lg:px-16">
         {children}
@@ -884,8 +886,8 @@ const Contact = () => (
       <div className="flex flex-col gap-8 md:gap-12">
         <div className="flex flex-col gap-2">
           <span className="font-mono text-[10px] uppercase tracking-widest text-white/30">Direct Email</span>
-          <a href="mailto:studio@rosehansen.studio" className="font-mono text-base sm:text-2xl md:text-3xl lg:text-4xl transition-colors hover:text-primary break-all sm:break-normal">
-            studio@rosehansen.studio
+          <a href="mailto:rose@hansenaudio.co.uk" className="font-mono text-base sm:text-2xl md:text-3xl lg:text-4xl transition-colors hover:text-primary break-all sm:break-normal">
+            rose@hansenaudio.co.uk
           </a>
         </div>
       </div>
@@ -893,9 +895,13 @@ const Contact = () => (
         <div className="flex flex-col gap-4 md:items-end">
           <span className="font-mono text-[10px] uppercase tracking-widest text-white/30">Socials</span>
           <div className="flex gap-8">
-            <Instagram className="h-6 w-6 hover:text-primary transition-colors cursor-pointer" />
+            <a href="https://www.instagram.com/mixedbyrose/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors cursor-pointer">
+              <Instagram className="h-6 w-6" />
+            </a>
             <Twitter className="h-6 w-6 hover:text-primary transition-colors cursor-pointer" />
-            <Mail className="h-6 w-6 hover:text-primary transition-colors cursor-pointer" />
+            <a href="mailto:rose@hansenaudio.co.uk" className="hover:text-primary transition-colors cursor-pointer">
+              <Mail className="h-6 w-6" />
+            </a>
           </div>
         </div>
       </div>
