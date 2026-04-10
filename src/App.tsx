@@ -155,7 +155,7 @@ const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isPlaying, isLarg
 };
 
 // --- COMPONENTS ---
-function Layout({ children, isPlaying, setIsPlaying }: { children: React.ReactNode, isPlaying: boolean, setIsPlaying: React.Dispatch<React.SetStateAction<boolean>> }) {
+function Layout({ children, isPlaying, setIsPlaying, isVideoSlide }: { children: React.ReactNode, isPlaying: boolean, setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>, isVideoSlide: boolean }) {
   const location = useLocation();
   const isHome = location.pathname === '/';
 
@@ -174,7 +174,7 @@ function Layout({ children, isPlaying, setIsPlaying }: { children: React.ReactNo
       <Navbar1 />
 
       {/* Global Play/Pause Toggle */}
-      {location.pathname !== '/contact' && (
+      {location.pathname === '/' && isVideoSlide && (
         <button 
           onClick={() => setIsPlaying(!isPlaying)}
           className="fixed bottom-24 right-6 md:bottom-12 md:right-12 z-[60] flex items-center justify-center w-14 h-14 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full hover:bg-primary/20 hover:border-primary/40 transition-all duration-500 group"
@@ -224,7 +224,7 @@ function Layout({ children, isPlaying, setIsPlaying }: { children: React.ReactNo
   );
 }
 
-const Home = ({ isPlaying, setIsPlaying }: { isPlaying: boolean, setIsPlaying: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean, setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>, setIsVideoSlide: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const reducedMotion = useReducedMotion();
   const [trackIndex, setTrackIndex] = useState(0);
   const [bgIndex, setBgIndex] = useState(0);
@@ -292,23 +292,16 @@ const Home = ({ isPlaying, setIsPlaying }: { isPlaying: boolean, setIsPlaying: R
     return () => clearInterval(timer);
   }, [isLargeScreen]);
 
-  // Update masterIndex automatically on mobile ONLY if no interaction has occurred
+  // Sync isVideoSlide state whenever masterIndex changes (for mobile play button visibility)
   useEffect(() => {
-    if (isLargeScreen || hasSwiped) return;
     const currentItem = masterGallery[masterIndex];
-    // Photos stay longer (15s) if user hasn't swiped, Videos shorter (10s)
-    const duration = currentItem.type === 'image' ? 15000 : 10000;
-    
-    const timer = setTimeout(() => {
-      setMasterIndex((prev) => (prev + 1) % masterGallery.length);
-    }, duration); 
-    return () => clearTimeout(timer);
-  }, [masterIndex, isLargeScreen, hasSwiped]);
+    setIsVideoSlide(currentItem.type === 'video');
+  }, [masterIndex, setIsVideoSlide]);
 
   const handleDragEnd = (event: any, info: any) => {
-    const threshold = 30; // Reduced for faster response
+    const threshold = 30;
     if (Math.abs(info.offset.x) > threshold) {
-      setHasSwiped(true); // User has taken control, stop auto-cycle
+      setIsPlaying(false); // Reset to paused on every swipe — user must tap Play to authorize
       if (info.offset.x > threshold) {
         setMasterIndex((prev) => (prev - 1 + masterGallery.length) % masterGallery.length);
       } else {
@@ -912,13 +905,14 @@ const Contact = () => (
 // --- MAIN WRAPPER ---
 const App = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isVideoSlide, setIsVideoSlide] = useState(false);
 
   return (
     <Router>
       <div className="relative min-h-screen">
-        <Layout isPlaying={isPlaying} setIsPlaying={setIsPlaying}>
+        <Layout isPlaying={isPlaying} setIsPlaying={setIsPlaying} isVideoSlide={isVideoSlide}>
           <Routes>
-            <Route path="/" element={<Home isPlaying={isPlaying} setIsPlaying={setIsPlaying} />} />
+            <Route path="/" element={<Home isPlaying={isPlaying} setIsPlaying={setIsPlaying} setIsVideoSlide={setIsVideoSlide} />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
