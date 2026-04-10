@@ -53,7 +53,7 @@ const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isPlaying, isLarg
   const currentItem = masterGallery[masterIndex];
   const mobileIframeRef = useRef<HTMLIFrameElement>(null);
 
-  // Send commands to the mobile iframe via YouTube postMessage API
+  // Helper to send commands to a specific iframe
   const sendCommand = (iframe: HTMLIFrameElement | null, func: string) => {
     if (iframe?.contentWindow) {
       iframe.contentWindow.postMessage(
@@ -63,19 +63,23 @@ const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isPlaying, isLarg
     }
   };
 
-  // When isPlaying changes, play/pause + mute/unmute
-  useEffect(() => {
-    const iframe = mobileIframeRef.current;
-    if (isPlaying) {
-      sendCommand(iframe, 'playVideo');
-      sendCommand(iframe, 'unMute');
-    } else {
-      sendCommand(iframe, 'pauseVideo');
-      sendCommand(iframe, 'mute');
-    }
-  }, [isPlaying]);
+  // Broadcast command to ALL iframes in the domestic to ensure sync
+  const broadcastCommand = (func: string) => {
+    const iframes = document.querySelectorAll('iframe');
+    iframes.forEach(iframe => {
+      if (iframe.contentWindow) {
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: 'command', func, args: [] }),
+          '*'
+        );
+      }
+    });
+  };
 
-  // When a NEW iframe loads, wait for YouTube API to init then apply current state
+  // No longer using useEffect to send commands here to avoid conflicts with the broadcaster
+  // Playback is managed by handleToggle and handleMobileIframeLoad only
+
+  // When a NEW iframe loads, ensure it matches current state
   const handleMobileIframeLoad = () => {
     setTimeout(() => {
       const iframe = mobileIframeRef.current;
@@ -86,7 +90,7 @@ const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isPlaying, isLarg
         sendCommand(iframe, 'pauseVideo');
         sendCommand(iframe, 'mute');
       }
-    }, 1500);
+    }, 800); // Shorter sync delay
   };
 
   return (
@@ -159,25 +163,34 @@ function Layout({ children, isPlaying, setIsPlaying, isVideoSlide }: { children:
   const location = useLocation();
   const isHome = location.pathname === '/';
 
-  const handleToggle = () => {
-    const nextState = !isPlaying;
-    setIsPlaying(nextState);
-    
-    // Direct broadcast of commands during the user-gesture to bypass mobile restrictions
+  const broadcastCommand = (func: string) => {
     const iframes = document.querySelectorAll('iframe');
-    const playFunc = nextState ? 'playVideo' : 'pauseVideo';
-    const muteFunc = nextState ? 'unMute' : 'mute';
-    
     iframes.forEach(iframe => {
       if (iframe.contentWindow) {
-        iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: playFunc, args: [] }), '*');
-        iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: muteFunc, args: [] }), '*');
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: 'command', func, args: [] }),
+          '*'
+        );
       }
     });
   };
 
+  const handleToggle = () => {
+    const nextState = !isPlaying;
+    setIsPlaying(nextState);
+    
+    // Direct broadcast of commands during the user-gesture
+    if (nextState) {
+      broadcastCommand('playVideo');
+      broadcastCommand('unMute');
+    } else {
+      broadcastCommand('pauseVideo');
+      broadcastCommand('mute');
+    }
+  };
+
   return (
-    <div className="relative w-full h-full min-h-[100dvh] bg-bg text-text font-sans selection:bg-primary selection:text-white antialiased overflow-x-hidden">
+    <div className="relative min-h-screen bg-bg text-text font-sans selection:bg-primary selection:text-white antialiased">
       <a href="#content" className="skip-link">Skip to content</a>
       
       {!isHome && (
@@ -190,11 +203,11 @@ function Layout({ children, isPlaying, setIsPlaying, isVideoSlide }: { children:
       {/* New Project Navbar Integration */}
       <Navbar1 />
 
-      {/* Global Play/Pause Toggle */}
+      {/* Global Play/Pause Toggle - DESKTOP ONLY (Integrated into mobile card instead) */}
       {location.pathname === '/' && isVideoSlide && (
         <button 
           onClick={handleToggle}
-          className="fixed top-[78%] -translate-y-1/2 right-10 md:top-auto md:bottom-12 md:right-12 md:translate-y-0 z-[60] flex items-center justify-center w-14 h-14 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full hover:bg-primary/20 hover:border-primary/40 transition-all duration-500 group"
+          className="fixed bottom-12 right-12 z-[60] hidden lg:flex items-center justify-center w-14 h-14 bg-black/50 backdrop-blur-xl border border-white/10 rounded-full hover:bg-primary/20 hover:border-primary/40 transition-all duration-500 group"
           aria-label={isPlaying ? "Pause" : "Play"}
         >
           <AnimatePresence mode="wait">
@@ -260,16 +273,8 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
     }
   };
 
-  // When isPlaying changes, play/pause + mute/unmute
-  useEffect(() => {
-    if (isPlaying) {
-      sendDesktopCommand('playVideo');
-      sendDesktopCommand('unMute');
-    } else {
-      sendDesktopCommand('pauseVideo');
-      sendDesktopCommand('mute');
-    }
-  }, [isPlaying]);
+  // No longer using useEffect here for mobile sync to avoid staggering
+  // Managed by direct broadcast and handleDesktopIframeLoad
 
   // When a new desktop iframe loads, apply current play state
   const handleDesktopIframeLoad = () => {
@@ -316,10 +321,38 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
     return () => setIsVideoSlide(false); // Reset when leaving Home
   }, [masterIndex, setIsVideoSlide]);
 
+  const broadcastCommand = (func: string) => {
+    const iframes = document.querySelectorAll('iframe');
+    iframes.forEach(iframe => {
+      if (iframe.contentWindow) {
+        iframe.contentWindow.postMessage(
+          JSON.stringify({ event: 'command', func, args: [] }),
+          '*'
+        );
+      }
+    });
+  };
+
+  const handleToggle = () => {
+    const nextState = !isPlaying;
+    setIsPlaying(nextState);
+    if (nextState) {
+      broadcastCommand('playVideo');
+      broadcastCommand('unMute');
+    } else {
+      broadcastCommand('pauseVideo');
+      broadcastCommand('mute');
+    }
+  };
+
   const handleDragEnd = (event: any, info: any) => {
     const threshold = 30;
     if (Math.abs(info.offset.x) > threshold) {
-      setIsPlaying(false); // Reset to paused on every swipe — user must tap Play to authorize
+      setIsPlaying(false); 
+      // Force immediate pause on all videos if playing during swipe
+      broadcastCommand('pauseVideo');
+      broadcastCommand('mute');
+
       if (info.offset.x > threshold) {
         setMasterIndex((prev) => (prev - 1 + masterGallery.length) % masterGallery.length);
       } else {
@@ -329,7 +362,7 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
   };
 
   return (
-    <div className="relative flex h-[100dvh] flex-col items-center justify-center px-6 md:px-12 pt-12 overflow-hidden">
+    <div className="relative flex min-h-screen flex-col items-center justify-center px-6 md:px-12 pt-20 overflow-hidden">
       <DynamicBackground trackIndex={trackIndex} bgIndex={bgIndex} masterIndex={masterIndex} isPlaying={isPlaying} isLargeScreen={isLargeScreen} />
       
       {/* Mobile Swipe Layer */}
@@ -360,15 +393,35 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
             >
               {masterGallery[masterIndex].label}
             </motion.span>
-            <h2 className="text-white text-xl md:text-2xl font-box uppercase leading-tight">
+            <h2 className="text-white text-xl md:text-2xl font-box uppercase leading-tight mb-6">
               {masterGallery[masterIndex].title}
             </h2>
-            <div className="mt-4 flex justify-center gap-1.5">
+
+            {/* INTEGRATED PLAY BUTTON FOR MOBILE */}
+            {masterGallery[masterIndex].type === 'video' && (
+              <div className="flex justify-center mb-6">
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  onClick={handleToggle}
+                  className="w-16 h-16 bg-primary/20 backdrop-blur-xl border border-primary/40 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(157,0,255,0.2)]"
+                >
+                  {isPlaying ? (
+                    <Pause className="w-6 h-6 text-primary fill-primary" />
+                  ) : (
+                    <Play className="w-6 h-6 text-primary fill-primary ml-1" />
+                  )}
+                </motion.button>
+              </div>
+            )}
+
+            <div className="flex justify-center gap-1.5">
                {masterGallery.map((_, i) => (
                  <div key={i} className={`h-0.5 rounded-full transition-all duration-500 ${masterIndex === i ? 'w-6 bg-primary' : 'w-1.5 bg-white/10'}`} />
                ))}
             </div>
-            <p className="text-white/20 text-[8px] uppercase tracking-widest mt-4 animate-pulse">Swipe</p>
+            <p className="text-white/20 text-[8px] uppercase tracking-widest mt-4 animate-pulse">
+              {masterIndex < masterGallery.length - 1 ? "Swipe for more" : "Swipe to return"}
+            </p>
           </motion.div>
         </AnimatePresence>
       </div>
