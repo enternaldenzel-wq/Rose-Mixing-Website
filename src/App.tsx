@@ -442,14 +442,14 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
       </div>
       )}
 
-      <div className="absolute bottom-8 left-6 md:left-12 right-6 md:right-12 z-10 flex flex-col items-start lg:flex-row lg:items-end lg:justify-between gap-6 pointer-events-none">
+      <div className="absolute bottom-8 left-6 md:left-12 right-6 md:right-12 z-10 flex flex-col items-center md:items-start lg:flex-row lg:items-end lg:justify-between gap-6 pointer-events-none">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 1 }}
-          className="flex flex-col gap-2 pointer-events-auto"
+          className="flex flex-col items-center md:items-start gap-2 pointer-events-auto"
         >
-          <p className="max-w-[200px] md:max-w-xs font-mono text-[8px] md:text-[10px] uppercase leading-relaxed tracking-widest text-white/50">
+          <p className="hidden md:block max-w-xs font-mono text-[10px] uppercase leading-relaxed tracking-widest text-white/50">
             Shaping the texture of sound through analog precision and digital clarity.
           </p>
           <Link to="/portfolio" className="group flex items-center gap-2 font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-white transition-all hover:text-primary">
@@ -459,7 +459,7 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
         </motion.div>
       </div>
       
-      <div className="absolute bottom-6 right-6 md:bottom-12 md:right-12 z-20 pointer-events-none text-right">
+      <div className="hidden md:block absolute bottom-6 right-6 md:bottom-12 md:right-12 z-20 pointer-events-none text-right">
         <p className="font-mono text-[8px] uppercase tracking-[0.5em] text-white/20">2025 © ROSÉ HANSEN AUDIO</p>
       </div>
     </div>
