@@ -163,6 +163,11 @@ function Layout({ children, isPlaying, setIsPlaying, isVideoSlide }: { children:
   const location = useLocation();
   const isHome = location.pathname === '/';
 
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   const broadcastCommand = (func: string) => {
     const iframes = document.querySelectorAll('iframe');
     iframes.forEach(iframe => {
