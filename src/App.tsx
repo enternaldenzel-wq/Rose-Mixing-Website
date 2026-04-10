@@ -375,7 +375,7 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
       />
 
       {/* Centered Role Card - Mobile & Tablet Only */}
-      <div className="lg:hidden absolute top-[78%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 w-[80%] max-w-[320px] pointer-events-none">
+      <div className="lg:hidden absolute top-[78%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-[60] w-[80%] max-w-[320px] pointer-events-none">
         <AnimatePresence mode="wait">
           <motion.div
             key={masterIndex}
@@ -383,7 +383,7 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -15, scale: 0.98 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="bg-black/60 backdrop-blur-3xl p-6 rounded-[2rem] border border-white/10 text-center shadow-[0_15px_40px_rgba(0,0,0,0.6)] pointer-events-auto"
+            className="bg-black/60 backdrop-blur-3xl p-6 rounded-[2rem] border border-white/10 text-center shadow-[0_15px_40px_rgba(0,0,0,0.6)]"
           >
             <motion.span 
               initial={{ opacity: 0 }}
@@ -403,7 +403,7 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
                 <motion.button
                   whileTap={{ scale: 0.9 }}
                   onClick={handleToggle}
-                  className="w-16 h-16 bg-primary/20 backdrop-blur-xl border border-primary/40 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(157,0,255,0.2)]"
+                  className="w-16 h-16 bg-primary/20 backdrop-blur-xl border border-primary/40 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(157,0,255,0.2)] pointer-events-auto"
                 >
                   {isPlaying ? (
                     <Pause className="w-6 h-6 text-primary fill-primary" />
