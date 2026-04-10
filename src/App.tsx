@@ -135,7 +135,7 @@ const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isPlaying, isLarg
                     ref={mobileIframeRef}
                     key={currentItem.id}
                     title="Mobile/Tablet BG"
-                    src={`https://www.youtube.com/embed/${currentItem.id}?mute=1&controls=0&loop=1&playlist=${currentItem.id}&start=${currentItem.start}&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=1&origin=${window.location.origin}`}
+                    src={`https://www.youtube.com/embed/${currentItem.id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${currentItem.id}&start=${currentItem.start}&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=1&origin=${window.location.origin}`}
                     className="cinematic-cover"
                     style={{ border: 'none' }}
                     allow="autoplay; encrypted-media"
@@ -291,7 +291,7 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
         sendDesktopCommand('pauseVideo');
         sendDesktopCommand('mute');
       }
-    }, 1500);
+    }, 300); // Very short delay to capture the early ready state
   };
 
   useEffect(() => {
@@ -467,7 +467,7 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
               ref={desktopIframeRef}
               key={studioTracks[trackIndex].id}
               title="Mini Preview"
-              src={`https://www.youtube.com/embed/${studioTracks[trackIndex].id}?mute=1&controls=0&loop=1&playlist=${studioTracks[trackIndex].id}&start=${studioTracks[trackIndex].start}&rel=0&showinfo=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=${window.location.origin}`}
+              src={`https://www.youtube.com/embed/${studioTracks[trackIndex].id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${studioTracks[trackIndex].id}&start=${studioTracks[trackIndex].start}&rel=0&showinfo=0&modestbranding=1&playsinline=1&enablejsapi=1&origin=${window.location.origin}`}
               className="w-full h-full rounded-lg"
               style={{ border: 'none' }}
               allow="autoplay; encrypted-media"
