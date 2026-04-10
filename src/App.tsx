@@ -49,7 +49,7 @@ const masterGallery = (() => {
   return gallery;
 })();
 
-const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isMuted }: { trackIndex: number; bgIndex: number; masterIndex: number, isMuted: boolean }) => {
+const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isMuted, isLargeScreen }: { trackIndex: number; bgIndex: number; masterIndex: number, isMuted: boolean, isLargeScreen: boolean }) => {
   const currentItem = masterGallery[masterIndex];
   const mobileIframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -78,60 +78,64 @@ const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isMuted }: { trac
 
   return (
     <div className="fixed inset-0 z-0 opacity-100 pointer-events-none overflow-hidden bg-black" aria-hidden="true">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={bgIndex + "-pc-bg"}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 3.0, ease: "easeInOut" }}
-          className="absolute inset-0 h-full w-full z-10"
-        >
-          {/* PC (Large Screens): The Landing Photos cycle independently */}
-          <div className="hidden lg:block absolute inset-0 w-full h-full overflow-hidden">
-            <img 
-              src={landingImages[bgIndex].url} 
-              className={`w-full h-full object-cover ${landingImages[bgIndex].position} scale-100`} 
-              alt="" 
-            />
-          </div>
-        </motion.div>
-      </AnimatePresence>
-
-      <AnimatePresence mode="wait">
-        <motion.div
-           key={masterIndex + "-master-bg"}
-           initial={{ opacity: 0 }}
-           animate={{ opacity: 1 }}
-           exit={{ opacity: 0 }}
-           transition={{ duration: 0.8, ease: "easeInOut" }}
-           className="absolute inset-0 h-full w-full z-10"
-        >
-          {/* Mobile & Tablet: Swipeable Master Gallery (Videos + Images) */}
-          <div className="lg:hidden absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center bg-black">
-            {currentItem.type === 'video' ? (
-              <div className="absolute inset-0 w-full h-full">
-                <iframe
-                  ref={mobileIframeRef}
-                  key={currentItem.id}
-                  title="Mobile/Tablet BG"
-                  src={`https://www.youtube.com/embed/${currentItem.id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${currentItem.id}&start=${currentItem.start}&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=1&origin=${window.location.origin}`}
-                  className="cinematic-cover"
-                  style={{ border: 'none' }}
-                  allow="autoplay; encrypted-media"
-                  onLoad={handleMobileIframeLoad}
-                />
-              </div>
-            ) : (
+      {/* PC (Large Screens): The Landing Photos cycle independently */}
+      {isLargeScreen && (
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={bgIndex + "-pc-bg"}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 3.0, ease: "easeInOut" }}
+            className="absolute inset-0 h-full w-full z-10"
+          >
+            <div className="absolute inset-0 w-full h-full overflow-hidden">
               <img 
-                src={currentItem.url} 
-                className={`w-full h-full object-cover ${currentItem.position} scale-110`} 
+                src={landingImages[bgIndex].url} 
+                className={`w-full h-full object-cover ${landingImages[bgIndex].position} scale-100`} 
                 alt="" 
               />
-            )}
-          </div>
-        </motion.div>
-      </AnimatePresence>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      )}
+
+      {/* Mobile & Tablet: Swipeable Master Gallery (Videos + Images) */}
+      {!isLargeScreen && (
+        <AnimatePresence mode="wait">
+          <motion.div
+             key={masterIndex + "-master-bg"}
+             initial={{ opacity: 0 }}
+             animate={{ opacity: 1 }}
+             exit={{ opacity: 0 }}
+             transition={{ duration: 0.8, ease: "easeInOut" }}
+             className="absolute inset-0 h-full w-full z-10"
+          >
+            <div className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center bg-black">
+              {currentItem.type === 'video' ? (
+                <div className="absolute inset-0 w-full h-full">
+                  <iframe
+                    ref={mobileIframeRef}
+                    key={currentItem.id}
+                    title="Mobile/Tablet BG"
+                    src={`https://www.youtube.com/embed/${currentItem.id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${currentItem.id}&start=${currentItem.start}&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=1&origin=${window.location.origin}`}
+                    className="cinematic-cover"
+                    style={{ border: 'none' }}
+                    allow="autoplay; encrypted-media"
+                    onLoad={handleMobileIframeLoad}
+                  />
+                </div>
+              ) : (
+                <img 
+                  src={currentItem.url} 
+                  className={`w-full h-full object-cover ${currentItem.position} scale-110`} 
+                  alt="" 
+                />
+              )}
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      )}
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 z-20 pointer-events-none lg:bg-gradient-to-b lg:from-black/20 lg:via-transparent lg:to-black/20" />
     </div>
   );
@@ -283,7 +287,7 @@ const Home = ({ isMuted, setIsMuted }: { isMuted: boolean, setIsMuted: React.Dis
 
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center px-6 md:px-12 pt-20 overflow-hidden">
-      <DynamicBackground trackIndex={trackIndex} bgIndex={bgIndex} masterIndex={masterIndex} isMuted={isMuted} />
+      <DynamicBackground trackIndex={trackIndex} bgIndex={bgIndex} masterIndex={masterIndex} isMuted={isMuted} isLargeScreen={isLargeScreen} />
       
       {/* Mobile Swipe Layer */}
       <motion.div 
