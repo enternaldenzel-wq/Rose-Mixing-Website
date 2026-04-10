@@ -53,27 +53,30 @@ const DynamicBackground = ({ trackIndex, bgIndex, masterIndex, isMuted, isLargeS
   const currentItem = masterGallery[masterIndex];
   const mobileIframeRef = useRef<HTMLIFrameElement>(null);
 
-  // Send mute/unmute to the mobile iframe via YouTube postMessage API
-  const sendMuteCommand = (iframe: HTMLIFrameElement | null, muted: boolean) => {
+  // Send commands to the mobile iframe via YouTube postMessage API
+  const sendCommand = (iframe: HTMLIFrameElement | null, func: string) => {
     if (iframe?.contentWindow) {
-      const command = muted ? 'mute' : 'unMute';
       iframe.contentWindow.postMessage(
-        JSON.stringify({ event: 'command', func: command, args: [] }),
+        JSON.stringify({ event: 'command', func, args: [] }),
         '*'
       );
     }
   };
 
-  // When isMuted changes, send command to existing iframe
+  // When isMuted changes, send mute/unmute + always ensure playing
   useEffect(() => {
-    sendMuteCommand(mobileIframeRef.current, isMuted);
+    const iframe = mobileIframeRef.current;
+    sendCommand(iframe, isMuted ? 'mute' : 'unMute');
+    sendCommand(iframe, 'playVideo');
   }, [isMuted]);
 
-  // When a NEW iframe loads (video changed), wait for YouTube API to init then apply mute state
+  // When a NEW iframe loads, wait for YouTube API to init then force play + apply mute state
   const handleMobileIframeLoad = () => {
     setTimeout(() => {
-      sendMuteCommand(mobileIframeRef.current, isMuted);
-    }, 1000);
+      const iframe = mobileIframeRef.current;
+      sendCommand(iframe, 'playVideo');
+      sendCommand(iframe, isMuted ? 'mute' : 'unMute');
+    }, 1500);
   };
 
   return (
@@ -211,28 +214,28 @@ const Home = ({ isMuted, setIsMuted }: { isMuted: boolean, setIsMuted: React.Dis
   const [hasSwiped, setHasSwiped] = useState(false);
   const desktopIframeRef = useRef<HTMLIFrameElement>(null);
 
-  // Send mute/unmute to the desktop iframe via YouTube postMessage API
-  useEffect(() => {
+  // Helper to send commands to desktop iframe
+  const sendDesktopCommand = (func: string) => {
     if (desktopIframeRef.current?.contentWindow) {
-      const command = isMuted ? 'mute' : 'unMute';
       desktopIframeRef.current.contentWindow.postMessage(
-        JSON.stringify({ event: 'command', func: command, args: [] }),
+        JSON.stringify({ event: 'command', func, args: [] }),
         '*'
       );
     }
+  };
+
+  // When isMuted changes, send mute/unmute + ensure playing
+  useEffect(() => {
+    sendDesktopCommand(isMuted ? 'mute' : 'unMute');
+    sendDesktopCommand('playVideo');
   }, [isMuted]);
 
-  // When a new desktop iframe loads, wait for YouTube API then apply mute state
+  // When a new desktop iframe loads, wait for YouTube API then force play + apply mute state
   const handleDesktopIframeLoad = () => {
     setTimeout(() => {
-      if (desktopIframeRef.current?.contentWindow) {
-        const command = isMuted ? 'mute' : 'unMute';
-        desktopIframeRef.current.contentWindow.postMessage(
-          JSON.stringify({ event: 'command', func: command, args: [] }),
-          '*'
-        );
-      }
-    }, 1000);
+      sendDesktopCommand('playVideo');
+      sendDesktopCommand(isMuted ? 'mute' : 'unMute');
+    }, 1500);
   };
 
   useEffect(() => {
