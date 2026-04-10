@@ -296,6 +296,7 @@ const Home = ({ isPlaying, setIsPlaying, setIsVideoSlide }: { isPlaying: boolean
   useEffect(() => {
     const currentItem = masterGallery[masterIndex];
     setIsVideoSlide(currentItem.type === 'video');
+    return () => setIsVideoSlide(false); // Reset when leaving Home
   }, [masterIndex, setIsVideoSlide]);
 
   const handleDragEnd = (event: any, info: any) => {
