@@ -766,7 +766,7 @@ const About = () => (
            <div className="border-l-2 border-primary/40 pl-6 md:pl-8 py-2 relative">
              <div className="absolute -left-3 top-0 opacity-10 text-primary font-accent text-6xl">"</div>
              <TextReveal 
-               text="My philosophy is simple, but unapologetic: vibe-first. The goal isn't just to make sure the mix doesn't clip—it's to shape a spatial environment that immediately puts the listener into a world of your creation." 
+               text="My philosophy is simple, but unapologetic: vibe-first. The goal isn't just to make sure the mix doesn't clip, it's to shape a spatial environment that immediately puts the listener into a world of your creation." 
                className="font-sans text-xl md:text-2xl text-white leading-relaxed font-light italic"
                delay={0.6}
              />
